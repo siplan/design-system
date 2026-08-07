@@ -1,0 +1,46 @@
+.ids-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.ids-field__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.ids-input {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  height: 2.5rem;
+  padding: 0 var(--space-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ids-input:focus {
+  outline: none;
+  border-color: var(--color-primary-400);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.ids-input:disabled {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-subtle);
+  cursor: not-allowed;
+}
+
+.ids-input--error {
+  border-color: var(--color-danger);
+}
+
+.ids-field__error {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--color-danger);
+}

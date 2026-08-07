@@ -1,0 +1,57 @@
+.ids-table-container {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  overflow-x: auto;
+}
+
+.ids-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+.ids-table thead {
+  background-color: var(--color-surface-muted);
+}
+
+.ids-table th {
+  text-align: left;
+  padding: var(--space-md) var(--space-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.ids-table td {
+  padding: var(--space-md) var(--space-lg);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.ids-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Realce semântico de linha (ex.: pendência, aprovado) — substitui as cores
+   de zebra "à mão" repetidas por tela no Integra original. */
+.ids-table__row--warning {
+  background-color: var(--color-warning-bg);
+  box-shadow: inset 3px 0 0 var(--color-warning);
+}
+.ids-table__row--success {
+  background-color: var(--color-success-bg);
+  box-shadow: inset 3px 0 0 var(--color-success);
+}
+.ids-table__row--danger {
+  background-color: var(--color-danger-bg);
+  box-shadow: inset 3px 0 0 var(--color-danger);
+}
+
+.ids-table__empty {
+  padding: var(--space-2xl);
+  text-align: center;
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,114 @@
+.ids-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width-expanded) 1fr;
+  grid-template-rows: var(--topbar-accent-height) var(--header-height) 1fr;
+  grid-template-areas:
+    'topbar topbar'
+    'sidebar header'
+    'sidebar main';
+  min-height: 100vh;
+  background-color: var(--color-surface-muted);
+  transition: grid-template-columns 0.2s ease;
+}
+
+.ids-shell--collapsed {
+  grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+}
+
+/* Breakpoint único e real (via CSS, não recalculado em JS a cada resize)
+   — o Integra original decidia "é mobile" com um `windowWidth < 768` no
+   JS do layout em vez de deixar o CSS resolver isso. */
+@media (max-width: 768px) {
+  .ids-shell {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'topbar'
+      'header'
+      'main';
+  }
+
+  .ids-shell__sidebar {
+    position: fixed;
+    inset: var(--topbar-accent-height) 0 0 auto;
+    z-index: 40;
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+  }
+
+  .ids-shell--sidebar-open .ids-shell__sidebar {
+    transform: translateX(0);
+  }
+}
+
+.ids-shell__topbar-accent {
+  grid-area: topbar;
+  background-color: var(--color-primary-500);
+}
+
+.ids-shell__sidebar {
+  grid-area: sidebar;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+
+.ids-shell__header {
+  grid-area: header;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+}
+
+.ids-shell__main {
+  grid-area: main;
+  padding: var(--space-xl);
+  overflow-y: auto;
+}
+
+/* ---- Sidebar / navegação ---- */
+.ids-nav {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.ids-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.ids-nav__item:hover {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.ids-nav__item--active {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-surface-text);
+  box-shadow: var(--shadow-brand);
+}
+
+.ids-nav__children {
+  list-style: none;
+  margin: 0;
+  padding-left: var(--space-xl);
+}

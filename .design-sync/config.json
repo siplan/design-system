@@ -1,0 +1,12 @@
+{
+  "projectId": "f8284aab-f114-4911-9806-95569d12e899",
+  "shape": "package",
+  "pkg": "@planejar/integra-design-system",
+  "globalName": "IntegraDS",
+  "buildCmd": "npm run build",
+  "cssEntry": "dist/index.css",
+  "overrides": {
+    "AppShell": { "cardMode": "column", "viewport": "960x600" }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

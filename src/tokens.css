@@ -1,0 +1,153 @@
+/**
+ * Tokens alinhados ao Manual da Marca Planejar (2022) — ver
+ * brand/manual-da-marca-2022.md. Cor de marca e cinza institucional vêm dos
+ * valores oficiais do manual (HEXA/RGB/Pantone); a escala 50–950 e os tons
+ * de superfície/texto são derivados desses dois valores-base por
+ * mistura com branco/preto, mantendo a matiz oficial em toda a rampa.
+ */
+:root {
+  /* ---- Cor de marca (base oficial: HEXA #B41E23, RGB 180.30.35, CMYK 20.98.89.12) ---- */
+  --color-primary-50: #fbf4f4;
+  --color-primary-100: #f8e9e9;
+  --color-primary-200: #efcecf;
+  --color-primary-300: #e3acae;
+  --color-primary-400: #d47d7f;
+  --color-primary-500: #b41e23;
+  --color-primary-600: #991a1e;
+  --color-primary-700: #7e1519;
+  --color-primary-800: #631113;
+  --color-primary-900: #480c0e;
+  --color-primary-950: #2d0809;
+  /* Tokens de PAPEL (não de degrau da escala): qual tom de vermelho fazer o
+     trabalho de "texto legível sobre a superfície" ou "fundo sutil de
+     destaque" — o degrau certo pra isso muda de claro pra escuro (mesma
+     lógica de qualquer design system: o valor de marca em si nunca muda,
+     mas o degrau usado como texto/fundo precisa inverter de lado na rampa
+     pra manter contraste em fundo escuro). */
+  --color-primary-text: var(--color-primary-500);
+  --color-primary-surface-text: var(--color-primary-600);
+
+  /* ---- Neutros / superfície (base oficial: cinza institucional HEXA #77787B,
+     RGB 119.120.123, Pantone 418 U — substitui o slate-blue genérico usado
+     antes, sem relação com a identidade da marca) ---- */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f7f7f7;
+  --color-border: #dddde0;
+  --color-border-muted: #ebebeb;
+  --color-text: #1e1e1f;
+  --color-text-muted: #77787b;
+  --color-text-subtle: #a7a7a9;
+
+  /* ---- Semânticas de estado (uma cor por estado, não "escolhida à mão"
+     a cada tela como no sistema original) ---- */
+  --color-danger: #b91c1c;
+  --color-danger-bg: #fef2f2;
+  --color-warning: #b45309;
+  --color-warning-bg: #ffedd5;
+  --color-success: #15803d;
+  --color-success-bg: #dcfce7;
+  --color-info: #2563eb;
+  --color-info-bg: #eff6ff;
+
+  /* ---- Tipografia (famílias oficiais do manual da marca: Roboto como
+     principal, Lucida Sans Unicode como apoio — ambas sem serifa. Nenhuma
+     das duas é embutida aqui como @font-face; o app consumidor deve
+     carregar "Roboto" (ex.: Google Fonts ou self-hosted) para que o
+     primeiro nome da pilha realmente resolva, senão cai no fallback
+     de sistema) ---- */
+  --font-sans: "Roboto", "Lucida Sans Unicode", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ---- Raios (8px era, disparado, o mais usado no sistema original) ---- */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* ---- Sombras (consolidando ~15 variações do original em 3 níveis) ---- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.12);
+  --shadow-brand: inset 3px 0 0 var(--color-primary-500), 0 6px 18px rgba(180, 30, 35, 0.07);
+
+  /* ---- Espaçamento ---- */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+
+  /* ---- Layout ---- */
+  --sidebar-width-collapsed: 64px;
+  --sidebar-width-expanded: 280px;
+  --header-height: 56px;
+  --topbar-accent-height: 6px;
+
+  /* ---- Breakpoints de referência (usar via CSS media query;
+     documentados aqui como fonte única — nada de valores ad-hoc por tela) ---- */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/**
+ * Tema escuro — o manual da marca não define uma versão dark (só p&b/
+ * grayscale para impressão/mídia sem cor), então este bloco é uma extensão
+ * nossa. Duas regras guiaram cada valor, não achismo visual:
+ *
+ * 1. A cor de marca em si (--color-primary-500 = #B41E23) NUNCA muda entre
+ *    temas — é o mesmo vermelho institucional nos dois, e continua sendo o
+ *    bg sólido do botão primário e da faixa do topo em ambos.
+ * 2. Todo par texto/fundo abaixo foi conferido contra a fórmula de contraste
+ *    do WCAG 2.1 (razão de luminância relativa) e mira >=4.5:1 para texto
+ *    normal, >=3:1 para elementos gráficos/UI — os valores comentados são o
+ *    resultado desse cálculo, não uma escolha arbitrária.
+ */
+:root[data-theme="dark"] {
+  /* Neutros — mesma matiz do cinza institucional (#77787B), não um
+     cinza-azulado genérico. Superfície quase-preta (não preto puro, senão
+     sombras/elevação somem) com texto quase-branco. */
+  --color-surface: #19191b;          /* texto --color-text sobre isto: 13.9:1 */
+  --color-surface-muted: #212124;
+  --color-border: #414146;           /* contraste ~1.7:1 vs. surface — visível, não pesado */
+  --color-border-muted: #2c2c2f;
+  --color-text: #ececee;             /* 13.9:1 sobre --color-surface (AAA) */
+  --color-text-muted: #a8a8ac;       /* 7.4:1 sobre --color-surface (AA, texto normal) */
+  --color-text-subtle: #737376;      /* 3.7:1 — mesmo nível relativo do claro (só decorativo/placeholder) */
+
+  /* Vermelho de marca como TEXTO/destaque sobre fundo escuro: usar o
+     degrau-500 puro como texto aqui daria só 2.6:1 (não passa nem o mínimo
+     de 3:1 pra UI) — por isso os papéis abaixo usam um degrau mais claro da
+     MESMA rampa (400/300), preservando a matiz oficial, só ajustando a
+     luminância pro fundo escuro. */
+  --color-primary-text: var(--color-primary-400);         /* 5.9:1 sobre --color-surface */
+  --color-primary-surface-text: var(--color-primary-300); /* 8.3:1 sobre --color-primary-50 (abaixo) */
+  --color-primary-50: #321a1c;   /* era o tom quase-branco do claro; aqui é um vinho escuro sutil (fundo de destaque, não texto) */
+  --color-primary-100: #481b1d;  /* idem, para o glow de foco do Input */
+  --shadow-brand: inset 3px 0 0 var(--color-primary-400), 0 6px 18px rgba(212, 125, 127, 0.14);
+
+  /* Semânticas de estado — os fundos abaixo já existiam; sem clarear
+     também o texto, danger/warning/success/info ficavam em ~2.5:1 sobre o
+     próprio fundo (o mesmo problema do vermelho de marca, sistêmico a
+     qualquer cor "600/700" sobre um fundo quase-preto). Usando o degrau
+     "400" de cada família semântica, todos passam de 5.9:1. */
+  --color-danger: #f87171;
+  --color-danger-bg: #3a1414;
+  --color-warning: #fbbf24;
+  --color-warning-bg: #3a2a10;
+  --color-success: #4ade80;
+  --color-success-bg: #12321d;
+  --color-info: #60a5fa;
+  --color-info-bg: #10233a;
+}
