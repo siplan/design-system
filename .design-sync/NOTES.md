@@ -91,6 +91,27 @@ nesses seletores em `Card.css` e `AppShell.css`. Resync rodado após o fix: os 1
 saíram `unchanged` na verificação (API/render hash inalterados — é ajuste de CSS, não de
 composição), só `upload.styling` foi true; nenhuma preview precisou ser re-autorada/re-gradeada.
 
+## Re-sync (10/08/2026) — mesmo bug, agora em `Input`
+
+Segundo round reportado pelo usuário: o label de `Input` (`.ids-field__label`) também ficava
+sem contraste no escuro — mas causa raiz diferente da anterior. `.ids-field` nunca teve
+`background-color` própria (correto: um campo de formulário não deveria virar uma caixa opaca
+só por existir), então o label fica "nu" sobre o que estiver ao redor. O bug de fundo é mais
+geral ainda: o design system nunca definia um par `background-color`/`color` de base para a
+própria página — qualquer texto solto direto no `body` (fora de Card/AppShell, que já pareiam
+os dois) herdava `--color-text` sem que o fundo da página tivesse acompanhado a troca de tema.
+Corrigido em duas frentes:
+- `tokens.css`: regra base em `body { background-color: var(--color-surface); color:
+  var(--color-text); font-family: var(--font-sans); }` — cobre qualquer texto direto na página,
+  não só o que está dentro dos nossos componentes de superfície.
+- `.design-sync/previews/Input.tsx`: as 3 variantes passaram a compor `Input` dentro de `Card`
+  (composição real mais comum — form dentro de card) em vez de `<div>` nu, então a preview
+  também reflete um uso plausível. Isso mudou o `sourceKey` do `Input` (preview é fonte), então
+  o resync marcou `Input` como `changed` e pediu regrade — as 3 células (`Padrao`, `ComErro`,
+  `Desabilitado`) foram regradadas `good` a partir do sheet em claro (único modo que a captura
+  local testa; ver nota "Conhecido/observado" no topo do arquivo sobre dark nunca ser
+  exercitado nas previews).
+
 ## Re-sync risks
 
 - Se novos componentes forem adicionados a `src/index.ts`, a próxima sync os pega
