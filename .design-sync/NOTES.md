@@ -78,6 +78,19 @@ design-sync não tem hoje um jeito de capturar `data-theme="dark"` nas previews 
 renderizam claro). Se o pane do claude.ai/design expuser alternância de tema no futuro, vale
 reconferir visualmente lá.
 
+## Re-sync (10/08/2026) — correção de contraste no tema escuro
+
+Bug reportado pelo usuário via screenshots do claude.ai/design: `.ids-card` e os containers
+do `AppShell` (`.ids-shell`, `.ids-shell__header`, `.ids-shell__sidebar`, `.ids-shell__main`)
+definiam `background-color` a partir dos tokens de tema mas nunca `color` — conteúdo livre
+(children/ReactNode sem classe própria, ex. `<strong>Integra</strong>` no slot do Header, ou
+`<p>` dentro de Card/MetricCard/SectionCard) ficava sem cor de texto declarada e herdava o
+preto padrão do host; no tema claro isso coincidia por acaso com o token certo, no escuro
+virava texto escuro sobre fundo escuro. Corrigido adicionando `color: var(--color-text)`
+nesses seletores em `Card.css` e `AppShell.css`. Resync rodado após o fix: os 10 componentes
+saíram `unchanged` na verificação (API/render hash inalterados — é ajuste de CSS, não de
+composição), só `upload.styling` foi true; nenhuma preview precisou ser re-autorada/re-gradeada.
+
 ## Re-sync risks
 
 - Se novos componentes forem adicionados a `src/index.ts`, a próxima sync os pega
