@@ -16,7 +16,9 @@
     "./styles.css": "./dist/index.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/fonts/roboto/LICENSE.txt",
+    "src/fonts/lucida-sans-unicode/NOTICE.md"
   ],
   "scripts": {
     "build": "tsup",
