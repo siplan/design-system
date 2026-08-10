@@ -8,6 +8,7 @@
     'sidebar main';
   min-height: 100vh;
   background-color: var(--color-surface-muted);
+  color: var(--color-text);
   transition: grid-template-columns 0.2s ease;
 }
 
@@ -48,6 +49,7 @@
 .ids-shell__sidebar {
   grid-area: sidebar;
   background-color: var(--color-surface);
+  color: var(--color-text);
   border-right: 1px solid var(--color-border);
   overflow-y: auto;
 }
@@ -55,6 +57,7 @@
 .ids-shell__header {
   grid-area: header;
   background-color: var(--color-surface);
+  color: var(--color-text);
   border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
@@ -64,6 +67,7 @@
 
 .ids-shell__main {
   grid-area: main;
+  color: var(--color-text);
   padding: var(--space-xl);
   overflow-y: auto;
 }
