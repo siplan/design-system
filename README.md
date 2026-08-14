@@ -10,28 +10,28 @@ os valores estruturais (raios, sombras, layout) foram extraídos do
 código-fonte real do Integra, os componentes foram implementados do zero
 em React corrigindo os problemas de implementação e de UX identificados no
 levantamento, e a cor de marca, o cinza institucional e a tipografia seguem
-o [Manual da Marca Planejar 2022](brand/manual-da-marca-2022.md) — não o
-que estava hardcoded no Integra original.
+o [Guia de Utilização da Marca](brand/Guia%20de%20Utilização%20da%20Marca.md) —
+não o que estava hardcoded no Integra original.
 
 ## O que foi mantido (identidade visual)
 
-- **Cor de marca**: vermelho `#B41E23` (HEXA/RGB/CMYK oficiais do manual da
-  marca), escala 50–950 derivada desse valor-base por mistura com
-  branco/preto — não a escala do preset PrimeVue do Integra, que usava
-  `#B51D22` (praticamente igual, mas não o valor oficial).
-- **Cinza institucional**: `#77787B` (Pantone 418 U, manual da marca) — usado
+- **Cor de marca**: vermelho `#B51D22` (HEXA/RGB/CMYK oficiais do Guia de
+  Utilização da Marca), escala 50–950 derivada desse valor-base por mistura
+  com branco/preto.
+- **Cinza institucional**: `#77787B` (Guia de Utilização da Marca) — usado
   como base para texto secundário, bordas e superfícies neutras, no lugar do
   slate-blue genérico (`#667085`/`#94a3b8`) que não tinha relação com a
   marca.
 - **Tipografia**: `Roboto` como fonte principal e `Lucida Sans Unicode` como
-  apoio, ambas do manual da marca — o app consumidor deve carregar "Roboto"
-  (Google Fonts ou self-hosted) para que a pilha resolva a família correta.
+  apoio, ambas do Guia de Utilização da Marca — o app consumidor deve carregar
+  "Roboto" (Google Fonts ou self-hosted) para que a pilha resolva a família
+  correta.
 - **Raio de card padrão**: `8px` (era, disparado, o valor mais repetido no
   código-fonte).
 - **Sombra de card**: o "preto azulado" `rgba(15, 23, 42, *)` usado em todas
   as variações de sombra do sistema original, consolidado em 3 níveis.
 - **Destaque de item ativo/marca**: sombra interna vermelha à esquerda
-  (`inset 3px 0 0 #B41E23`), usada em menus e linhas de destaque.
+  (`inset 3px 0 0 #B51D22`), usada em menus e linhas de destaque.
 - **Estrutura do layout**: barra de destaque no topo, sidebar colapsável,
   header fixo — mesma composição visual do layout principal do Integra.
 - **Realce semântico de linhas de tabela** (pendente / aprovado / erro),

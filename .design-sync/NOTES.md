@@ -8,6 +8,13 @@
   Instalado `playwright@1.61.1` em `.ds-sync/node_modules` para casar com esse build (evita
   re-download de ~200MB). Se o cache mudar, reconferir `playwright-core/browsers.json` da
   versão instalada contra o build cacheado antes de reinstalar.
+  **Atualização (13/08/2026):** o cache da máquina migrou para o build `1234`
+  (`chromium-1234`/`chromium_headless_shell-1234`; o `1228` não estava mais presente — cache é
+  compartilhado com outras sessões/repos, não é exclusivo deste). `playwright@1.61.1` (pinado em
+  `1228`) passou a falhar com `Executable doesn't exist`. Resolvido instalando
+  `playwright@1.62.1`, cujo `browsers.json` pina `1234` — confirmado batendo a revisão contra
+  `https://raw.githubusercontent.com/microsoft/playwright/v<X.Y.Z>/packages/playwright-core/browsers.json`
+  antes de instalar. Reconferir de novo se o cache mudar outra vez.
 - Todos os 10 componentes exportados em `src/index.ts` foram mapeados 1:1 pelo conversor
   (`componentSrcMap` não precisou de override).
 
@@ -111,6 +118,76 @@ Corrigido em duas frentes:
   `Desabilitado`) foram regradadas `good` a partir do sheet em claro (único modo que a captura
   local testa; ver nota "Conhecido/observado" no topo do arquivo sobre dark nunca ser
   exercitado nas previews).
+
+## Correção de extração — Pantone do vermelho ausente no MD (11/08/2026)
+
+O `brand/manual-da-marca-2022.md` (conversão PDF→MD) omitia o código Pantone
+do vermelho de marca — trazia só `PANTONE 418 U` (o do cinza), dando a
+impressão de que a paleta tinha um único Pantone. Os valores HEXA/RGB/CMYK já
+estavam corretos (batem com o PDF original e com `src/tokens.css`); o gap era
+só a linha do Pantone do vermelho (`18-1553 TCX`, nome "Adrenaline Rush"), que
+existe no PDF (slide "Paleta de cores") mas não tinha sido transcrita. MD
+refeito do PDF (agora com a paleta em tabela, HEXA/CMYK/RGB/Pantone das duas
+cores lado a lado) e a lacuna foi replicada em `README.md` (bullet da cor de
+marca) e no comentário de `src/tokens.css` — nenhum dos dois citava o Pantone
+do vermelho. Nenhum valor de token de cor mudou (hex/rgb/cmyk já estavam
+certos); é correção de documentação, não de design.
+
+## Correção da cor de marca — Guia de Utilização da Marca (13/08/2026)
+
+O usuário trouxe um novo `brand/Guia de Utilização da Marca.pdf` (versão mais
+recente do manual, indicada pela agência como correção de uma versão
+anterior). A página "Paleta de cores" desse guia traz o vermelho como HEXA
+`#B51D22` / RGB `181, 29, 34` / CMYK `20, 98, 90, 12` — **diferente** do
+`#B41E23` que este design system vinha usando desde o rework de tokens
+registrado acima ("Rework de tokens (Manual da Marca Planejar 2022)").
+
+Isso inverte a decisão anterior: naquele rework, `#B51D22` tinha sido
+descartado por ser "herdado do preset PrimeVue do Integra, não o valor
+certificado", e `#B41E23` (de uma extração de PDF do manual 2022) foi
+adotado como oficial. O guia atualizado mostra que essa leitura estava
+errada — `#B51D22` é o valor correto, e por coincidência é exatamente o que
+já estava hardcoded no Integra original.
+
+Alterado:
+- `src/tokens.css`: `--color-primary-500` de `#b41e23` para `#b51d22`; toda a
+  escala 50–950 recalculada a partir do novo valor-base usando os mesmos
+  percentuais de mistura com branco/preto do rework anterior (mesma
+  metodologia, só a base mudou). `--shadow-brand` (claro e escuro) e os
+  comentários de contraste WCAG também atualizados — os graus de contraste
+  ficaram praticamente idênticos (a matiz nova é quase igual à antiga), então
+  os mesmos tokens de papel (`--color-primary-text` = degrau 400,
+  `--color-primary-surface-text` = degrau 300) continuam válidos no tema
+  escuro.
+- `brand/manual-da-marca-2022.md`: reescrito a partir do novo PDF — tabela de
+  paleta corrigida, nota explícita sobre a inversão de valor, nota sobre
+  Pantone (o guia atual não lista códigos Pantone; os antigos foram mantidos
+  só como referência histórica não confirmada), e crédito final atualizado
+  (o guia assina como "Institucional Comunicação", sem contato — a versão
+  anterior citava "Maui Comunicação" com e-mail/telefone).
+- `README.md`: mesmas referências de cor de marca corrigidas.
+
+Cinza institucional (`#77787B`), tipografia (Roboto/Lucida Sans Unicode),
+raios, sombras e cores semânticas **não mudaram** — o novo guia confirma os
+mesmos valores para essas partes; a única correção de fato é o vermelho de
+marca.
+
+Nenhum componente tinha o hex antigo hardcoded fora de `tokens.css` (todos
+consomem `var(--color-primary-*)`), então a correção não exigiu mudança em
+nenhum `.tsx`/`.css` de componente. Rodar `npm run build` e um novo
+`/design-sync` para propagar a cor corrigida às previews publicadas em
+claude.ai/design, já que elas foram capturadas com o hex antigo.
+
+## Renomeação do manual da marca (13/08/2026)
+
+A pedido do usuário, `brand/manual-da-marca-2022.md` foi renomeado para
+`brand/Guia de Utilização da Marca.md` (mesmo nome do PDF-fonte,
+`brand/Guia de Utilização da Marca.pdf`) e reescrito sem nenhuma referência
+à versão/nome antigos — o conteúdo é a transcrição atual do guia, sem notas
+de "correção" ou histórico de versões anteriores (essas notas foram
+descartadas a pedido do usuário; o histórico de por que a cor mudou continua
+registrado só aqui no NOTES.md, na entrada "Correção da cor de marca" acima).
+Referências atualizadas em `README.md`, `src/tokens.css` e `src/fonts.css`.
 
 ## Re-sync risks
 

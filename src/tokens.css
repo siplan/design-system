@@ -1,23 +1,23 @@
 /**
- * Tokens alinhados ao Manual da Marca Planejar (2022) — ver
- * brand/manual-da-marca-2022.md. Cor de marca e cinza institucional vêm dos
- * valores oficiais do manual (HEXA/RGB/Pantone); a escala 50–950 e os tons
+ * Tokens alinhados ao Guia de Utilização da Marca Planejar — ver
+ * brand/Guia de Utilização da Marca.md. Cor de marca e cinza institucional vêm
+ * dos valores oficiais do guia (HEXA/RGB/CMYK); a escala 50–950 e os tons
  * de superfície/texto são derivados desses dois valores-base por
  * mistura com branco/preto, mantendo a matiz oficial em toda a rampa.
  */
 :root {
-  /* ---- Cor de marca (base oficial: HEXA #B41E23, RGB 180.30.35, CMYK 20.98.89.12) ---- */
+  /* ---- Cor de marca (base oficial: HEXA #B51D22, RGB 181.29.34, CMYK 20.98.90.12) ---- */
   --color-primary-50: #fbf4f4;
-  --color-primary-100: #f8e9e9;
-  --color-primary-200: #efcecf;
-  --color-primary-300: #e3acae;
-  --color-primary-400: #d47d7f;
-  --color-primary-500: #b41e23;
-  --color-primary-600: #991a1e;
-  --color-primary-700: #7e1519;
-  --color-primary-800: #631113;
+  --color-primary-100: #f8e8e9;
+  --color-primary-200: #efcdce;
+  --color-primary-300: #e4abad;
+  --color-primary-400: #d47c7f;
+  --color-primary-500: #b51d22;
+  --color-primary-600: #9c191d;
+  --color-primary-700: #7f1418;
+  --color-primary-800: #641013;
   --color-primary-900: #480c0e;
-  --color-primary-950: #2d0809;
+  --color-primary-950: #2d0708;
   /* Tokens de PAPEL (não de degrau da escala): qual tom de vermelho fazer o
      trabalho de "texto legível sobre a superfície" ou "fundo sutil de
      destaque" — o degrau certo pra isso muda de claro pra escuro (mesma
@@ -77,7 +77,7 @@
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.05);
   --shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.12);
-  --shadow-brand: inset 3px 0 0 var(--color-primary-500), 0 6px 18px rgba(180, 30, 35, 0.07);
+  --shadow-brand: inset 3px 0 0 var(--color-primary-500), 0 6px 18px rgba(181, 29, 34, 0.07);
 
   /* ---- Espaçamento ---- */
   --space-xs: 0.25rem;
@@ -106,7 +106,7 @@
  * grayscale para impressão/mídia sem cor), então este bloco é uma extensão
  * nossa. Duas regras guiaram cada valor, não achismo visual:
  *
- * 1. A cor de marca em si (--color-primary-500 = #B41E23) NUNCA muda entre
+ * 1. A cor de marca em si (--color-primary-500 = #B51D22) NUNCA muda entre
  *    temas — é o mesmo vermelho institucional nos dois, e continua sendo o
  *    bg sólido do botão primário e da faixa do topo em ambos.
  * 2. Todo par texto/fundo abaixo foi conferido contra a fórmula de contraste
@@ -131,11 +131,11 @@
      de 3:1 pra UI) — por isso os papéis abaixo usam um degrau mais claro da
      MESMA rampa (400/300), preservando a matiz oficial, só ajustando a
      luminância pro fundo escuro. */
-  --color-primary-text: var(--color-primary-400);         /* 5.9:1 sobre --color-surface */
+  --color-primary-text: var(--color-primary-400);         /* 5.8:1 sobre --color-surface */
   --color-primary-surface-text: var(--color-primary-300); /* 8.3:1 sobre --color-primary-50 (abaixo) */
   --color-primary-50: #321a1c;   /* era o tom quase-branco do claro; aqui é um vinho escuro sutil (fundo de destaque, não texto) */
   --color-primary-100: #481b1d;  /* idem, para o glow de foco do Input */
-  --shadow-brand: inset 3px 0 0 var(--color-primary-400), 0 6px 18px rgba(212, 125, 127, 0.14);
+  --shadow-brand: inset 3px 0 0 var(--color-primary-400), 0 6px 18px rgba(212, 124, 127, 0.14);
 
   /* Semânticas de estado — os fundos abaixo já existiam; sem clarear
      também o texto, danger/warning/success/info ficavam em ~2.5:1 sobre o
