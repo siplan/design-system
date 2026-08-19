@@ -12,9 +12,20 @@
   white-space: nowrap;
 }
 
+/* Desabilitado: "afundar, não clarear". Reduzir opacidade sobre fundo já
+   escuro lava o conteúdo quase até o invisível — uma cor clara a 50% sobre
+   #121212 se aproxima do próprio fundo. Em vez disso o fundo cai um degrau de
+   superfície, a borda vira tracejada (sinal independente de cor) e o texto cai
+   pro nível terciário. `opacity: 1` explícito porque o consumidor pode estar
+   embutindo isto num contexto (Bootstrap, jQuery UI) que aplicaria opacidade
+   reduzida por padrão. */
 .ids-button:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 1;
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-subtle);
+  border: 1px dashed var(--color-border);
+  box-shadow: none;
 }
 
 .ids-button:focus-visible {
@@ -54,7 +65,7 @@
   border-color: var(--color-border);
 }
 .ids-button--secondary:hover:not(:disabled) {
-  background-color: var(--color-border-muted);
+  background-color: var(--color-surface-alta);
 }
 
 .ids-button--outline {
@@ -66,12 +77,17 @@
   background-color: var(--color-primary-50);
 }
 
+/* Preenchimento sólido usa --color-danger-solid, não --color-danger: no tema
+   escuro o segundo é o vermelho-claro de TEXTO (#f87171), que com `color: #fff`
+   em cima daria 1,9:1 — ilegível. O hover fica na mesma família semântica
+   (antes caía em --color-primary-700, o vinho da marca: escurecia, mas trocava
+   a cor de "perigo" pela cor de "marca" no meio da interação). */
 .ids-button--danger {
-  background-color: var(--color-danger);
+  background-color: var(--color-danger-solid);
   color: #fff;
 }
 .ids-button--danger:hover:not(:disabled) {
-  background-color: var(--color-primary-700);
+  background-color: var(--color-danger-solid-hover);
 }
 
 .ids-button--ghost {

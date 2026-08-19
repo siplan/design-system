@@ -29,10 +29,15 @@
   box-shadow: 0 0 0 3px var(--color-primary-100);
 }
 
+/* Mesmo padrão "afundar, não clarear" do Button: o campo desabilitado desce
+   pra superfície base (um degrau ABAIXO do fundo branco/muted do estado ativo)
+   e ganha borda tracejada, em vez de sinalizar só por cor. */
 .ids-input:disabled {
   background-color: var(--color-surface-muted);
   color: var(--color-text-subtle);
+  border-style: dashed;
   cursor: not-allowed;
+  opacity: 1;
 }
 
 .ids-input--error {

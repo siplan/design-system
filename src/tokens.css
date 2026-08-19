@@ -32,6 +32,12 @@
      antes, sem relação com a identidade da marca) ---- */
   --color-surface: #ffffff;
   --color-surface-muted: #f7f7f7;
+  /* Terceiro nível de superfície (hover/foco/seleção), entre --color-surface-muted
+     e --color-border. Nasceu como extensão local no SIPLAN-v2 e voltou pra cá na
+     sincronização: sem ele, hover era feito com --color-border-muted, que é um
+     token de LINHA, não de superfície. Rampa clara: 100% → 93,0% → 83,9% de
+     luminância relativa. */
+  --color-surface-alta: #ececec;
   --color-border: #dddde0;
   --color-border-muted: #ebebeb;
   --color-text: #1e1e1f;
@@ -42,6 +48,13 @@
      a cada tela como no sistema original) ---- */
   --color-danger: #b91c1c;
   --color-danger-bg: #fef2f2;
+  /* Token de PAPEL: o degrau de vermelho usado em PREENCHIMENTO SÓLIDO (fundo de
+     botão/ícone cheio, com texto claro em cima), em oposição a --color-danger,
+     que é o degrau de TEXTO/ícone sobre superfície. No claro os dois coincidem;
+     no escuro divergem, porque o vermelho de texto do escuro (#f87171) é claro
+     demais para receber texto branco por cima. */
+  --color-danger-solid: var(--color-danger);
+  --color-danger-solid-hover: #991b1b;
   --color-warning: #b45309;
   --color-warning-bg: #ffedd5;
   --color-success: #15803d;
@@ -115,40 +128,66 @@
  *    resultado desse cálculo, não uma escolha arbitrária.
  */
 :root[data-theme="dark"] {
-  /* Neutros — mesma matiz do cinza institucional (#77787B), não um
-     cinza-azulado genérico. Superfície quase-preta (não preto puro, senão
-     sombras/elevação somem) com texto quase-branco. */
-  --color-surface: #19191b;          /* texto --color-text sobre isto: 13.9:1 */
-  --color-surface-muted: #212124;
-  --color-border: #414146;           /* contraste ~1.7:1 vs. surface — visível, não pesado */
-  --color-border-muted: #2c2c2f;
-  --color-text: #ececee;             /* 13.9:1 sobre --color-surface (AAA) */
-  --color-text-muted: #a8a8ac;       /* 7.4:1 sobre --color-surface (AA, texto normal) */
-  --color-text-subtle: #737376;      /* 3.7:1 — mesmo nível relativo do claro (só decorativo/placeholder) */
+  /* Neutros. Superfície base em cinza NEUTRO PURO (#121212), não preto puro —
+     senão sombras/elevação somem. As demais camadas derivam dela preservando
+     os degraus de luminância relativa: 0,60% → 1,10% → 1,85% → 4,52%.
 
-  /* Vermelho de marca como TEXTO/destaque sobre fundo escuro: usar o
-     degrau-500 puro como texto aqui daria só 2.6:1 (não passa nem o mínimo
-     de 3:1 pra UI) — por isso os papéis abaixo usam um degrau mais claro da
-     MESMA rampa (400/300), preservando a matiz oficial, só ajustando a
-     luminância pro fundo escuro. */
-  --color-primary-text: var(--color-primary-400);         /* 5.8:1 sobre --color-surface */
-  --color-primary-surface-text: var(--color-primary-300); /* 8.3:1 sobre --color-primary-50 (abaixo) */
+     Histórico: a base era #19191b, um cinza com leve matiz frio (L≈1,0%).
+     Trocada por #121212 a pedido do usuário, e surface-muted/border/
+     border-muted recalculados a partir dela para manter a mesma hierarquia
+     de elevação. */
+  --color-surface: #121212;
+  --color-surface-muted: #1b1b1b;
+  --color-surface-alta: #252525;
+  --color-border: #3c3c3c;           /* 1,70:1 vs. surface — divisória decorativa; nenhum estado depende só dela */
+  --color-border-muted: #252525;
+  /* Histórico: --color-text era #ececee (quase-branco puro). Quando a
+     superfície escureceu pra #121212, o contraste do texto SUBIU (14,88:1 →
+     15,88:1) sem o texto ter mudado — na prática, mais glare contra um fundo
+     mais escuro, relatado como cansativo em telas com muito texto (grids).
+     #d8d8db reduz esse brilho e continua lido como "branco". */
+  --color-text: #d8d8db;             /* 13,17:1 sobre surface, 10,78:1 sobre surface-alta (AAA) */
+  --color-text-muted: #a8a8ac;       /* 7,91:1 sobre surface, 6,47:1 sobre surface-alta (AA) */
+  --color-text-subtle: #737376;      /* 3,96:1 — só texto grande/UI ou desabilitado, nunca leitura ativa */
+
+  /* Vermelho de marca como TEXTO/destaque sobre fundo escuro: o degrau-500
+     puro daria 2,82:1 (não passa nem o mínimo de 3:1 pra UI) — por isso os
+     papéis abaixo usam degraus mais claros da MESMA rampa (400/300),
+     preservando a matiz oficial e só ajustando a luminância. */
+  --color-primary-text: var(--color-primary-400);
+  --color-primary-surface-text: var(--color-primary-300); /* 8,25:1 sobre --color-primary-50 (abaixo) */
+  /* Histórico: o degrau 400 do escuro herdava o #d47c7f do claro. Usuário
+     relatou que lia como "rosa/salmão" em vez de "vinho" nos destaques do
+     escuro (hover/aba ativa do menu, rótulos do login) — causa: saturação
+     baixa (51%) de um degrau calibrado pro fundo claro. Ajuste: mesmo matiz
+     (358°, igual à marca) e mesma luminosidade perceptual, saturação elevada
+     a 72% (igual à do 500). Só neste bloco — o claro segue com #d47c7f. */
+  --color-primary-400: #e7696e;  /* 5,93:1 sobre surface, 4,85:1 sobre surface-alta (AA) */
   --color-primary-50: #321a1c;   /* era o tom quase-branco do claro; aqui é um vinho escuro sutil (fundo de destaque, não texto) */
   --color-primary-100: #481b1d;  /* idem, para o glow de foco do Input */
-  --shadow-brand: inset 3px 0 0 var(--color-primary-400), 0 6px 18px rgba(212, 124, 127, 0.14);
+  --shadow-brand: inset 3px 0 0 var(--color-primary-400), 0 6px 18px rgba(231, 105, 110, 0.14);
+  /* Sombra preta em vez do "preto azulado" do claro: sobre fundo quase-preto,
+     um rgba(15, 23, 42, .12) some — não separa a camada elevada do fundo. */
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.45);
 
   /* Semânticas de estado — os fundos abaixo já existiam; sem clarear
-     também o texto, danger/warning/success/info ficavam em ~2.5:1 sobre o
+     também o texto, danger/warning/success/info ficavam em ~2,5:1 sobre o
      próprio fundo (o mesmo problema do vermelho de marca, sistêmico a
      qualquer cor "600/700" sobre um fundo quase-preto). Usando o degrau
-     "400" de cada família semântica, todos passam de 5.9:1. */
-  --color-danger: #f87171;
+     "400" de cada família semântica, todos passam de 5,8:1 sobre o próprio
+     fundo pastel e de 6,2:1 sobre a superfície base. */
+  --color-danger: #f87171;       /* 6,77:1 sobre surface, 5,88:1 sobre --color-danger-bg */
   --color-danger-bg: #3a1414;
-  --color-warning: #fbbf24;
+  /* Divergência entre papéis: o vermelho de TEXTO acima é claro demais pra
+     receber texto branco em cima, então o preenchimento sólido mantém o
+     degrau do claro (#fff sobre ele: 6,47:1). */
+  --color-danger-solid: #b91c1c;
+  --color-danger-solid-hover: #7f1d1d;
+  --color-warning: #fbbf24;      /* 11,22:1 sobre surface, 8,28:1 sobre --color-warning-bg */
   --color-warning-bg: #3a2a10;
-  --color-success: #4ade80;
+  --color-success: #4ade80;      /* 10,75:1 sobre surface, 8,04:1 sobre --color-success-bg */
   --color-success-bg: #12321d;
-  --color-info: #60a5fa;
+  --color-info: #60a5fa;         /* 7,37:1 sobre surface, 6,24:1 sobre --color-info-bg */
   --color-info-bg: #10233a;
 }
 
