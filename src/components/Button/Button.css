@@ -12,19 +12,37 @@
   white-space: nowrap;
 }
 
-/* Desabilitado: "afundar, não clarear". Reduzir opacidade sobre fundo já
-   escuro lava o conteúdo quase até o invisível — uma cor clara a 50% sobre
-   #121212 se aproxima do próprio fundo. Em vez disso o fundo cai um degrau de
-   superfície, a borda vira tracejada (sinal independente de cor) e o texto cai
-   pro nível terciário. `opacity: 1` explícito porque o consumidor pode estar
-   embutindo isto num contexto (Bootstrap, jQuery UI) que aplicaria opacidade
-   reduzida por padrão. */
+/* Desabilitado. Nunca por opacidade: reduzir opacidade sobre fundo escuro lava
+   o conteúdo quase até o invisível — uma cor clara a 50% sobre #121212 se
+   aproxima do próprio fundo. O `opacity: 1` abaixo é explícito porque o
+   consumidor pode estar embutindo isto num contexto (Bootstrap, jQuery UI) que
+   aplicaria opacidade reduzida por padrão, e no escuro isso lavaria a textura
+   junto com o rótulo.
+
+   O sinal em si vem dos tokens --disabled-* e MUDA por tema (ver tokens.css e
+   docs/features/design-system/tema-escuro.md §8): no claro é afundar um degrau
+   de superfície + borda tracejada; no escuro é hachura, na densidade forte,
+   porque lá o degrau rende 1,10:1 (imperceptível) e o tracejado desenha um
+   padrão numa borda de 1,54:1 (invisível — informação não-textual precisa de
+   3:1, WCAG 1.4.11). Este arquivo não sabe em qual dos dois está.
+
+   O fundo NÃO é "o nível do estado ativo": --color-surface-muted é a superfície
+   neutra de controle desabilitado, e ela sobrescreve o fundo de TODAS as
+   variantes — o botão desabilitado deliberadamente deixa de ter cor de
+   variante (primary/danger perdem o preenchimento, outline/ghost ganham um).
+   Manter a cor da variante e sinalizar só por textura confundiria "desabilitado"
+   com "botão de ação primária". */
 .ids-button:disabled {
   cursor: not-allowed;
   opacity: 1;
   background-color: var(--color-surface-muted);
+  background-image: var(--disabled-hachura);
+  /* Explícito, apesar de ser o default: o consumidor pode ter um reset ou uma
+     classe de estado (spinner, "loading") com background-repeat: no-repeat no
+     mesmo elemento, e aí a hachura apareceria só num canto do botão. */
+  background-repeat: repeat;
   color: var(--color-text-subtle);
-  border: 1px dashed var(--color-border);
+  border: 1px var(--disabled-border-style) var(--disabled-border-color);
   box-shadow: none;
 }
 

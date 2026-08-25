@@ -29,18 +29,75 @@
   box-shadow: 0 0 0 3px var(--color-primary-100);
 }
 
-/* Mesmo padrão "afundar, não clarear" do Button: o campo desabilitado desce
-   pra superfície base (um degrau ABAIXO do fundo branco/muted do estado ativo)
-   e ganha borda tracejada, em vez de sinalizar só por cor. */
+/* Mesmo padrão do Button (ver o comentário longo em Button.css): o sinal vem
+   dos tokens --disabled-* e muda por tema — afundar + tracejar no claro,
+   hachura no escuro. Aqui a densidade é a LEVE: o campo tem valor digitado por
+   trás e a densidade forte competiria com a leitura.
+
+   No escuro --disabled-surface-field aponta para a mesma superfície do campo
+   ativo (o degrau de 1,10:1 não é perceptível e custa a forma do controle); no
+   claro ele afunda um degrau, como antes. `opacity: 1` é explícito porque o
+   consumidor pode aplicar a classe `.ids-input` num <select> (o componente
+   React só renderiza <input>, mas a classe é pública) e o UA aplica 0,7 em
+   <select>:disabled, o que lavaria a textura junto com o texto. */
 .ids-input:disabled {
-  background-color: var(--color-surface-muted);
+  background-color: var(--disabled-surface-field);
+  background-image: var(--disabled-hachura-leve);
+  /* Explícito pelo mesmo motivo do Button: reset ou classe de "loading" do
+     consumidor com no-repeat deixaria a hachura só num canto do campo. */
+  background-repeat: repeat;
   color: var(--color-text-subtle);
-  border-style: dashed;
+  border-color: var(--disabled-border-color);
+  border-style: var(--disabled-border-style);
   cursor: not-allowed;
   opacity: 1;
 }
 
+/* Readonly NÃO é disabled. Campo readonly costuma exibir valor calculado que o
+   usuário precisa LER (total, saldo, código gerado) — apagá-lo para o
+   terciário (3,96:1 no escuro) trabalha contra a função do campo. Mesma
+   família de sinal, para comunicar "não editável", em intensidade menor: a
+   textura fica na densidade leve, o valor sobe para --color-text-muted (7,91:1
+   sobre a superfície do campo no escuro) e o cursor é `default`, não
+   `not-allowed` — o conteúdo continua selecionável e copiável.
+
+   A borda é `solid` fixo, não --disabled-border-style: no claro o tracejado é
+   o sinal de DESABILITADO, e usá-lo aqui também apagaria a distinção que esta
+   regra existe para criar. */
+.ids-input[readonly] {
+  background-color: var(--disabled-surface-field);
+  background-image: var(--disabled-hachura-leve);
+  background-repeat: repeat;
+  color: var(--color-text-muted);
+  border-color: var(--disabled-border-color);
+  border-style: solid;
+  cursor: default;
+  opacity: 1;
+}
+
+/* Campo readonly RECEBE FOCO (é tabulável, e o usuário seleciona o valor para
+   copiar) — ao contrário do desabilitado, que não. Sem esta regra o anel de
+   foco ficava pela metade: a regra `.ids-input[readonly]` acima tem a mesma
+   especificidade de `.ids-input:focus` (0,2,0) e vem depois no arquivo, então
+   ganhava o desempate e sobrescrevia a border-color de foco — restava só o
+   box-shadow. */
+.ids-input[readonly]:focus {
+  border-color: var(--color-primary-400);
+}
+
 .ids-input--error {
+  border-color: var(--color-danger);
+}
+
+/* Estado semântico vence estado de edição: campo com erro mantém a borda de
+   perigo mesmo desabilitado, readonly ou em foco. Sem isto, `.ids-input--error`
+   (0,1,0) perde de `[readonly]`/`:disabled`/`:focus` (0,2,0) por
+   ESPECIFICIDADE — não por ordem; movê-la para o fim do arquivo não
+   resolveria. */
+.ids-input--error[readonly],
+.ids-input--error[readonly]:focus,
+.ids-input--error:disabled,
+.ids-input--error:focus {
   border-color: var(--color-danger);
 }
 

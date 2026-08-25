@@ -140,6 +140,33 @@
   --radius-lg: 12px;
   --radius-pill: 999px;
 
+  /* ---- Sinal de estado desabilitado ----
+     Os componentes (Button, Input) não sabem em que tema estão: leem sempre
+     os quatro tokens abaixo. Este bloco define o sinal do tema CLARO, que
+     segue sendo o histórico "afundar + tracejar" — o campo/botão desce um
+     degrau de superfície e a borda troca de estilo.
+
+     A HACHURA é redefinição exclusiva do tema escuro (ver o bloco correspondente
+     no [data-theme="dark"], que explica por quê). Aqui ela é `none` de
+     propósito, e não por falta de valor: no claro os dois canais tradicionais
+     ainda funcionam razoavelmente, e adotar textura nos dois temas é decisão
+     em aberto, não pendência de implementação. Enquanto for `none`, o claro
+     não muda de aparência.
+
+     Cuidado ao mexer: `none` é um valor válido de background-image; deixar o
+     token INDEFINIDO não é equivalente — `var()` sem fallback invalida a
+     propriedade inteira no cálculo do valor computado, o que também zeraria
+     qualquer background-image que o consumidor tenha posto no controle. */
+  --disabled-hachura: none;
+  --disabled-hachura-leve: none;
+  /* Superfície do campo desabilitado. No claro afunda um degrau (o campo ativo
+     é --color-surface); no escuro esse degrau é imperceptível e o token aponta
+     para a mesma superfície do ativo. Botão não precisa de token equivalente:
+     usa --color-surface-muted nos dois temas. */
+  --disabled-surface-field: var(--color-surface-muted);
+  --disabled-border-color: var(--color-border);
+  --disabled-border-style: dashed;
+
   /* ---- Sombras (consolidando ~15 variações do original em 3 níveis) ---- */
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.05);
@@ -259,6 +286,55 @@
   --color-success-bg: #12321d;
   --color-info: #60a5fa;         /* 7,37:1 sobre surface, 6,24:1 sobre --color-info-bg */
   --color-info-bg: #10233a;
+
+  /* ---- Sinal de estado desabilitado: aqui é HACHURA ----
+     Redefinição específica do escuro (o claro segue com afundar + tracejar,
+     ver o bloco de origem no :root). A textura não é preferência estética: no
+     escuro os dois canais que o claro usa não sustentam o estado, e ambos
+     foram medidos antes de sair.
+
+     1. Degrau de superfície. A rampa neutra é curta demais — de
+        --color-surface-muted (#1b1b1b) para --color-surface (#121212) são
+        1,10:1, abaixo do limiar de percepção (~1,2:1 em área grande). Chegar
+        a 2:1 exigiria ir a ~#4a4a4a, um cinza MAIS CLARO que o controle
+        ativo, invertendo a hierarquia (o desabilitado passaria a atrair o
+        olho). É por isso que --disabled-surface-field aponta para a MESMA
+        superfície do campo ativo aqui: o degrau não paga o que custa, e sem
+        ele o controle preserva a própria forma.
+     2. Borda tracejada. O estilo do traço é informação, mas --color-border
+        rende 1,70:1 sobre --color-surface e 1,54:1 sobre a superfície de
+        botão (--color-surface-muted): o traço em si é invisível, então o
+        padrão dele não pode ser lido. A WCAG 1.4.11 pede 3:1 para elemento
+        não-textual que carrega informação. (No claro o mesmo token rende
+        1,27:1 sobre o branco — o tracejado de lá também é fraco; o que muda
+        é que lá ele soma com um degrau de superfície visível.)
+
+     Textura resolve os dois: é um canal exclusivo desse estado (nenhum outro
+     do tema usa), e cobre a área inteira do controle em vez de 1 px de
+     contorno. As listras têm contraste local modesto — a 14% a listra fica em
+     ~1,59:1 contra --color-surface-muted —, patamar que só funciona porque o
+     padrão é de alta frequência e cobre a área toda; um bloco de cor uniforme
+     nesse contraste seria invisível.
+
+     Consequência a assumir de olhos abertos: com o fundo igual ao do ativo e
+     a borda em --color-border-muted (#252525 sobre #121212 ≈ 1,3:1, mais
+     fraca ainda que o tracejado rejeitado), no escuro a hachura é o ÚNICO
+     sinal do estado. A borda aqui não é reforço, é só contorno; qualquer
+     mudança que apague a textura (shorthand `background`, opacidade herdada,
+     filtro) apaga o estado inteiro.
+
+     Duas densidades: forte para controle acionável (botão — só há rótulo por
+     trás), leve para campo, que tem valor digitado por trás e não tolera a
+     mesma densidade. Ver docs/features/design-system/tema-escuro.md §8. */
+  --disabled-hachura: repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.14) 0 4px,
+      transparent 4px 9px);
+  --disabled-hachura-leve: repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.09) 0 3px,
+      transparent 3px 8px);
+  --disabled-surface-field: var(--color-surface);
+  --disabled-border-color: var(--color-border-muted);
+  --disabled-border-style: solid;
 }
 
 /**

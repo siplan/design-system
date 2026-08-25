@@ -2,7 +2,7 @@
 
 | Versão | Atualizado em |
 |--------|---------------|
-| 2      | 25/08/2026    |
+| 4      | 25/08/2026    |
 
 Guia de cor, contraste e uso do tema escuro do `@planejar/integra-design-system`.
 Ativado por `data-theme="dark"` no elemento raiz — os tokens de `src/tokens.css`
@@ -218,20 +218,117 @@ a mesma superfície do estado ativo — sobre fundo já escuro, opacidade baixa 
 conteúdo quase até o invisível, porque uma cor clara a 35–50% sobre um fundo
 quase-preto se aproxima do próprio fundo.
 
-O padrão adotado é **afundar, não clarear**:
+### 8.1 O que foi tentado no escuro, e por que saiu
 
-- Fundo cai um degrau de superfície em vez de manter o nível do estado ativo.
-- Borda muda para **tracejada** — sinal visual universal de "desabilitado",
-  independente de cor.
-- Texto cai para o nível terciário (`--color-text-subtle`, §3), nunca para o
+O escuro nasceu reaproveitando o sinal do claro — "afundar, não clarear". Os
+dois canais desse sinal foram descartados **por medição**, não por gosto:
+
+| Canal | Contraste real | Por que falha no escuro |
+|---|---|---|
+| Fundo cai um degrau de superfície | **1,10:1** (`--color-surface-muted` → `--color-surface`) | Abaixo do limiar de percepção humana (~1,2:1 em área grande). E quando o controle fica direto sobre a superfície base, ele perde a **forma**: deixa de parecer botão. |
+| Borda vira tracejada | **1,70:1** sobre `--color-surface` (campo) e **1,54:1** sobre `--color-surface-muted` (botão) | O estilo do traço é informação, mas está desenhado num traço que não aparece. A WCAG 1.4.11 pede 3:1 para elemento não-textual que carrega informação — um padrão só é legível se o traço que o forma for legível. |
+
+A causa é estrutural e vale registrar como regra: **no escuro, luminância de
+fundo não é um canal viável para comunicar "desabilitado".** A rampa neutra é
+curta demais — para chegar a 2:1 contra `--color-surface-muted` o fundo teria
+que ir a ~`#4a4a4a`, mais claro que o controle **ativo**, invertendo a
+hierarquia e fazendo o desabilitado atrair o olho.
+
+No **claro** os mesmos dois canais são fracos (o tracejado rende 1,27:1 sobre o
+branco), mas ali eles somam com um degrau de superfície que é de fato visível.
+Por isso **o claro continua com afundar + tracejar**, sem hachura — ver §8.5.
+
+### 8.2 O padrão vigente no escuro: hachura
+
+Descartada a luminância, sobra **textura** — canal exclusivo desse estado, que
+cobre a área inteira do controle em vez de 1 px de contorno. As listras têm
+contraste local modesto (~1,59:1 na densidade forte), mas um padrão de alta
+frequência em área grande é detectável nesse patamar, ao contrário de um bloco
+de cor uniforme.
+
+- **Hachura diagonal a 135°**, em dois níveis de branco translúcido:
+  `--disabled-hachura` (14%, forte) para controle acionável, e
+  `--disabled-hachura-leve` (9%) para campo, que tem valor digitado por trás.
+- **Campo permanece na superfície do estado ativo** (`--disabled-surface-field`
+  → `--color-surface`) — preserva a forma do controle. **Botão** usa a
+  superfície neutra de controle (`--color-surface-muted`), que sobrescreve o
+  fundo de todas as variantes: o botão desabilitado deliberadamente deixa de ter
+  cor de variante, para não ser confundido com botão de ação primária.
+- **Borda perde realce** (`--color-border-muted`) em vez de trocar de estilo.
+  Tracejado não é sinal de desabilitado no escuro; ele fica reservado a estados
+  transitórios (o "aguardando" do SIPLAN-v2).
+- **Texto cai para o nível terciário** (`--color-text-subtle`, §3), nunca para o
   principal com opacidade reduzida.
 - `cursor: not-allowed` (ou `default`, onde "not-allowed" não faz sentido).
-- `opacity: 1` **explícito**, porque o app consumidor pode estar embutindo o
-  componente num contexto (Bootstrap, jQuery UI) que aplicaria opacidade reduzida
-  por padrão — a diferenciação já vem do fundo/borda/texto, não precisa empilhar
-  opacidade em cima.
+- `opacity: 1` **explícito**: o app consumidor pode embutir o componente num
+  contexto (Bootstrap, jQuery UI) que aplicaria opacidade reduzida, e o próprio
+  UA aplica `opacity: 0.7` em `<select>:disabled` — os dois lavariam a textura.
+- **`background-color` e `background-image` sempre separados**, nunca o shorthand
+  `background`, que limparia a hachura. `background-repeat: repeat` também vai
+  explícito, apesar de ser o default: um reset ou uma classe de "loading" do
+  consumidor com `no-repeat` deixaria a hachura só num canto do controle.
 
-Aplicado em `Button` (`.ids-button:disabled`) e `Input` (`.ids-input:disabled`).
+**A hachura é o único sinal do estado no escuro** — assumir isso explicitamente.
+Com o fundo igual ao do ativo (campo) e a borda em `--color-border-muted`
+(#252525 sobre #121212 ≈ **1,3:1**, mais fraca ainda que o tracejado rejeitado),
+a borda não é reforço, é só contorno. Qualquer coisa que apague a textura —
+shorthand `background`, opacidade herdada, `filter` — apaga o estado inteiro.
+
+### 8.3 `readonly` não é `disabled`
+
+Campo readonly costuma exibir **valor calculado que o usuário precisa ler**
+(total, saldo, código gerado); apagá-lo para o terciário sob hachura forte
+trabalha contra a função do campo. O readonly usa a mesma família de sinal, em
+intensidade menor: densidade leve, borda sem realce, valor em
+`--color-text-muted` (7,91:1 sobre a superfície do campo, contra 3,96:1 do
+terciário) e `cursor: default` — o conteúdo continua selecionável.
+
+Duas consequências que valem regra, porque readonly (diferente de disabled)
+**recebe foco** e é tabulável:
+
+- O campo readonly precisa manter a borda de foco. A regra de estado tem a mesma
+  especificidade da de `:focus` e vem depois no arquivo, então sem um
+  `[readonly]:focus` explícito o anel de foco fica pela metade (só o
+  `box-shadow`).
+- Estado semântico vence estado de edição: `.ids-input--error` mantém a borda de
+  perigo mesmo desabilitado, readonly ou em foco. Isso é questão de
+  **especificidade**, não de ordem — `.ids-input--error` (0,1,0) perde de
+  `[readonly]`/`:disabled`/`:focus` (0,2,0) onde estiver no arquivo.
+
+### 8.4 Onde está aplicado
+
+`Button` (`.ids-button:disabled`, densidade forte) e `Input`
+(`.ids-input:disabled` e `.ids-input[readonly]`, densidade leve). Os componentes
+não sabem em que tema estão: leem os tokens `--disabled-hachura`,
+`--disabled-hachura-leve`, `--disabled-surface-field`, `--disabled-border-color`
+e `--disabled-border-style`, que trocam de valor no bloco `[data-theme="dark"]`.
+
+Regras que ainda **não** têm componente neste repositório, e valem para quando
+tiver ou para o consumidor:
+
+- **Controles pequenos** (checkbox, radio) são a exceção: em ~13 px não há área
+  para o padrão ser lido, e ali o sinal é `filter: grayscale(1)` com a opacidade
+  apenas complementando. Implementado hoje só em SIPLAN-v2.
+- **Só controle acionável recebe hachura.** Textura em conteúdo que apenas
+  *herda* uma classe de estado (célula de cabeçalho de grade, item de lista, nó
+  de árvore) enche a tela de ruído. Por isso o consumidor SIPLAN-v2 restringe a
+  regra a `button`/`a`/`.ui-button` e deixa o `.ui-state-disabled` genérico do
+  jqGrid de fora.
+
+### 8.5 Por que o claro não usa hachura (ainda)
+
+Decisão em aberto, registrada de propósito: **a hachura é hoje redefinição
+exclusiva do escuro**, e no `:root` claro os tokens `--disabled-hachura*` valem
+`none`. Motivo: no claro os canais tradicionais ainda funcionam de forma
+aceitável, e mudar o sinal de desabilitado do tema padrão é mudança de aparência
+em toda a base consumidora — não é subproduto de uma correção de contraste do
+escuro.
+
+Detalhe de implementação que não deve ser "limpado": o valor `none` é
+deliberado, e **não** equivale a deixar o token indefinido. Um `var()` sem
+fallback que não resolve invalida a propriedade inteira no cálculo do valor
+computado, o que zeraria também qualquer `background-image` que o consumidor
+tenha posto no controle.
 
 ## 9. Diretrizes gerais de uso
 
