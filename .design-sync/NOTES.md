@@ -38,9 +38,10 @@ JSDoc + `.d.ts` + preview autorada.
   estão corretamente aplicados, é só um floor de renderização. Não é um bug de preview.
 - Sem provider/tema — nenhum componente lê contexto React; nenhuma entrada `cfg.provider`
   foi necessária.
-- `tokens/`, `fonts/`, `guidelines/` ficaram vazios no bundle (tokens já vêm embutidos no CSS
-  compilado via `_ds_bundle.css`/`styles.css`; repo não tem `docs/guides/**` nem fontes
-  próprias) — normal para este repo, não é uma lacuna a preencher.
+- `tokens/` e `guidelines/` ficam vazios no bundle (tokens já vêm embutidos no CSS compilado
+  via `_ds_bundle.css`/`styles.css`; repo não tem `docs/guides/**`) — normal para este repo,
+  não é uma lacuna a preencher. `fonts/` **não** está mais vazio desde que o `[FONT_MISSING]`
+  foi resolvido (ver bullet abaixo): sobem `fonts.css` + os 3 `.woff2`.
 - **[FONT_MISSING] resolvido**: as duas fontes citadas em `--font-sans` agora estão embutidas
   como `@font-face` em `src/fonts.css` (importado por `src/index.ts` antes de `tokens.css`).
   `Roboto` (subset latin, variável 400–700 + itálico 400) foi baixada oficialmente do Google
@@ -291,6 +292,31 @@ mudou, só prosa do manual.
 
 Ainda pendente no PDF (não urgente, é rótulo de diagrama): a legenda "N = a
 Full hiltura de P" na pág. 08 segue dizendo "altura de P" em vez de "n".
+
+## Re-sync (25/08/2026) — hachura de desabilitado no tema escuro
+
+Propagação do commit `544870b` ("substituir sinal de desabilitado por hachura no escuro",
+mexendo em `Button.css`, `Input.css`, `tokens.css` e
+`docs/features/design-system/tema-escuro.md`). Driver de re-sync com âncora remota: **10/10
+`unchanged`** — API e composição não mudaram, é só CSS —, `capture` pulado
+(`empty_worklist`), nenhuma preview re-autorada ou re-gradada. Render check completo 10/10
+`bad: 0`, sem nenhuma linha de warn. Conferido na contact sheet que a hachura **não vazou
+para o tema claro** (as células `Desabilitado` de `Button` e `Input` seguem lisas) — que é o
+único modo que a captura local exercita.
+
+`conventions.md` revalidado contra o build fresco: todos os componentes, props e tokens que
+ele enumera continuam existindo (incluindo os tokens da Edição 2026 e o
+`--font-weight-semibold` depreciado). Sem drift, arquivo não tocado.
+
+Upload atômico: `upload.any` true só por `styling` + `aux` (`components: []`,
+`deletePaths: []`, `bundle: false`), plano com writes completos, 62 arquivos + sentinel duas
+vezes + `_ds_sync.json` por último. `list_files` pós-upload confere.
+
+Observação sobre o `list_files` remoto: o projeto tem arquivos que **não** vêm deste bundle —
+`templates/style-guide/**`, `Canvas.dc.html`, `CanvasDemo.jsx`, `support.js`,
+`_ds_manifest.json`, `_adherence.oxlintrc.json`, `.thumbnail` e um `fonts/l_10646.ttf`. São
+gerados pelo próprio claude.ai/design (self-check + canvas), não órfãos do sync. **Não
+deletar** num re-sync futuro: com âncora saudável o `deletePaths` vem vazio e está certo.
 
 ## Re-sync risks
 
