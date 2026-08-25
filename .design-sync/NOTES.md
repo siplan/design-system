@@ -266,6 +266,32 @@ sync anterior): plano com writes completos e `deletePaths: []`, 60 arquivos
 enviados + sentinel + `_ds_sync.json` por último. `list_files` pós-upload
 confere. Projeto: `https://claude.ai/design/p/f8284aab-f114-4911-9806-95569d12e899`.
 
+### Amaury corrigiu o PDF-fonte (25/08/2026, mesmo dia)
+
+O Amaury atualizou `brand/Guia de Utilização da Marca - 082026.pdf` depois do
+sync acima — comparei texto extraído (`pdftotext`) da versão anterior (staged
+no git) contra a nova; só duas linhas mudaram, exatamente as duas
+contradições de conteúdo que o Apêndice A do `.md` tinha sinalizado:
+
+1. **Uso incorreto nº 03 (pág. 28)** — corrigido de "NÃO usar a Marca na
+   posição vertical" para "Usar a Marca na posição horizontal apenas em
+   condições especiais". Coerente com o resto do manual agora.
+2. **RGB do cinza institucional (pág. 14)** — corrigido de `119, 120, 123`
+   (RGB da edição 2022) para `118, 119 120` (RGB correto de `#767778`, só que
+   sem a vírgula entre o 2º e o 3º número — typo cosmético, não vale reportar
+   de volta).
+
+Nenhuma imagem/diagrama mudou (conferido visualmente na pág. 28 — as 4
+miniaturas de violação continuam as mesmas). `Guia de Utilização da
+Marca.md` foi atualizado: as duas divergências saíram de "erro pendente" para
+uma seção "Corrigidos pela Planejar em 25/08/2026" no Apêndice A, com o texto
+do corpo já refletindo a versão nova. README.md também ajustado. **Não** foi
+necessário nenhum novo `/design-sync` — nada nos tokens/cores/tipografia
+mudou, só prosa do manual.
+
+Ainda pendente no PDF (não urgente, é rótulo de diagrama): a legenda "N = a
+Full hiltura de P" na pág. 08 segue dizendo "altura de P" em vez de "n".
+
 ## Re-sync risks
 
 - Se novos componentes forem adicionados a `src/index.ts`, a próxima sync os pega

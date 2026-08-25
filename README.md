@@ -99,11 +99,14 @@ O que do guia **não** entra no design system, e por quê:
   arquivos da marca. O pacote não embute o logotipo; use sempre os arquivos
   originais fornecidos pela Planejar.
 
-Duas divergências do próprio PDF foram identificadas e estão registradas no
-[Apêndice A do guia](brand/Guia%20de%20Utilização%20da%20Marca.md#apêndice-a--divergências-e-erros-do-pdf-original):
-o RGB declarado para o cinza institucional não corresponde ao HEXA (prevalece
-o HEXA) e alguns contrastes declarados divergem do recálculo WCAG (sem mudar
-nenhum veredicto, exceto vermelho sobre areia, que só passa em texto grande).
+Divergências do próprio PDF foram identificadas e estão registradas no
+[Apêndice A do guia](brand/Guia%20de%20Utilização%20da%20Marca.md#apêndice-a--divergências-e-erros-do-pdf-original)
+— as duas de conteúdo (regra de uso incorreto invertida e RGB do cinza
+institucional) já foram corrigidas pela Planejar numa revisão posterior do
+PDF-fonte (25/08/2026). Segue aberta a legenda "N = altura de P" no diagrama
+de construção (pág. 08, deveria ser "n"), e alguns contrastes declarados
+divergem do recálculo WCAG sem mudar nenhum veredicto, exceto vermelho sobre
+areia, que só passa em texto grande.
 
 ## Componentes
 

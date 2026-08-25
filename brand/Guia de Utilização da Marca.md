@@ -15,7 +15,9 @@ institucionais.
 > desenho — proporções, posições, cores das amostras — continuem
 > recuperáveis a partir deste arquivo. Divergências e erros de digitação
 > encontrados no PDF estão listados no [Apêndice A](#apêndice-a--divergências-e-erros-do-pdf-original);
-> nada foi "corrigido" silenciosamente no corpo do texto.
+> nada foi "corrigido" silenciosamente no corpo do texto além do que o
+> apêndice marca como corrigido pela própria Planejar em uma revisão
+> posterior do PDF-fonte (25/08/2026).
 
 ---
 
@@ -322,7 +324,7 @@ gráficos, fundos e composições neutras.
 |---|---|
 | **HEXA** | `#767778` |
 | **CMYK** | 55, 42, 39, 23 |
-| **RGB** | 119, 120, 123 *(ver [Apêndice A](#apêndice-a--divergências-e-erros-do-pdf-original) — o RGB de `#767778` é 118, 119, 120)* |
+| **RGB** | 118, 119, 120 *(corrigido pela Planejar em 25/08/2026 — o PDF grafa "118, 119 120", sem a vírgula entre o segundo e o terceiro número; ver [Apêndice A](#apêndice-a--divergências-e-erros-do-pdf-original))* |
 | **PANTONE** | Cool Gray 9 C (referência) |
 
 > **Imagem (pág. 14):** duas colunas de cor cheia ocupando a altura do
@@ -622,7 +624,7 @@ respeitar as regras de aplicação.
 |---|---|
 | 01 | NÃO distorcer a Marca |
 | 02 | NÃO rotacionar ou inclinar a Marca |
-| 03 | NÃO usar a Marca na posição vertical *(ver [Apêndice A](#apêndice-a--divergências-e-erros-do-pdf-original))* |
+| 03 | Usar a Marca na posição horizontal apenas em condições especiais *(corrigido pela Planejar em 25/08/2026 — ver [Apêndice A](#apêndice-a--divergências-e-erros-do-pdf-original))* |
 | 04 | NÃO rotacionar qualquer um dos elementos |
 | 05 | NÃO alterar a tipografia |
 | 06 | NÃO inverter as cores da Marca |
@@ -676,9 +678,47 @@ amaury@planejarjf.com.br
 
 Registrados aqui para que a transcrição continue fiel ao original **e** o erro
 não se propague em silêncio para o design system. Nada foi corrigido no corpo
-do texto acima.
+do texto acima além do que este apêndice registra explicitamente como
+**corrigido pela Planejar**.
 
-### Erros de digitação
+### Corrigidos pela Planejar em 25/08/2026
+
+O Amaury atualizou o arquivo-fonte (`brand/Guia de Utilização da Marca -
+082026.pdf`) depois da primeira transcrição. As duas contradições de conteúdo
+relatadas foram corrigidas nessa atualização; o texto do corpo acima já
+reflete a versão corrigida.
+
+1. **Uso incorreto nº 03 (pág. 28).** Antes: "NÃO usar a Marca na posição
+   **vertical**", que contradizia a pág. 05 ("a versão vertical é a assinatura
+   preferencial"). Agora: **"Usar a Marca na posição horizontal apenas em
+   condições especiais"** — coerente com a pág. 05/06 e com a regra do manual
+   anterior (*"NÃO usar a Marca na posição horizontal, a menos que ela não
+   possa ser utilizada de forma alguma na posição vertical"*). Único ponto a
+   observar: os outros 11 itens da lista mantêm o padrão "NÃO + verbo"; o item
+   03 é o único formulado como afirmação positiva ("Usar... apenas em
+   condições especiais") em vez de "NÃO usar...". Não é um erro — o sentido
+   está correto —, só quebra o padrão redacional da lista; não há necessidade
+   de reportar de volta, é só uma nota estilística.
+
+2. **RGB do cinza institucional (pág. 14).** Antes: HEXA `#767778` com RGB
+   `119, 120, 123` (na verdade o RGB do `#77787B` da edição anterior). Agora:
+   `118, 119 120` — os três números batem com `#767778`, mas falta a vírgula
+   entre o segundo e o terceiro (`119 120` em vez de `119, 120`). Prevalece a
+   leitura correta, **118, 119, 120**, usada no corpo do texto acima; o typo
+   de pontuação em si é cosmético e não precisa ser reportado — mas vale
+   avisar o Amaury caso ele revise a diagramação de novo.
+
+### Ainda não corrigido
+
+3. **Unidade da malha (pág. 08).** O texto corrido define a unidade como a
+   altura da letra **"n"** — igual à pág. 09 e ao manual anterior. A legenda
+   do diagrama segue dizendo "altura de **P**" nesta atualização também.
+   Prevalece o **"n"**: é o que o texto das duas páginas afirma e o que a
+   régua da pág. 09 demonstra. Não é urgente reportar — é um rótulo de
+   diagrama, não uma regra de uso —, mas segue pendente se o Amaury atualizar
+   o PDF de novo.
+
+### Erros de digitação ainda presentes
 
 | Pág. | No PDF | Leitura correta |
 |---|---|---|
@@ -686,30 +726,9 @@ do texto acima.
 | 02 | "**Vamilla Macchiatto**" | Vanilla Macchiato (grafia da pág. 21) |
 | 03 | "**le** vale para materiais impressos" | Ele vale |
 | 08 | "N = a **Full hiltura** de P" | full height / altura total |
+| 14 | "RGB 118, 119 **120**" | falta a vírgula antes do último número (ver item 2 acima) |
 | 15 | "Textos e **Cotrastes**" | Contrastes |
 | 16 | "poderá **protagonismo** dos 40%" | poderá **assumir o** protagonismo |
-
-### Contradições de conteúdo
-
-1. **Unidade da malha (pág. 08).** O texto corrido define a unidade como a
-   altura da letra **"n"** — igual à pág. 09 e ao manual anterior. A legenda
-   do diagrama diz "altura de **P**". Prevalece o **"n"**: é o que o texto
-   das duas páginas afirma e o que a régua da pág. 09 demonstra.
-
-2. **Uso incorreto nº 03 (pág. 28).** O item lê "NÃO usar a Marca na posição
-   **vertical**", o que contradiz frontalmente a pág. 05 ("a versão vertical é
-   a assinatura preferencial"). O manual anterior trazia a regra correta:
-   *"NÃO usar a Marca na posição **horizontal**, a menos que ela não possa ser
-   utilizada de forma alguma na posição vertical"* — coerente também com a
-   pág. 06 ("use a versão horizontal em espaços largos e baixos"). Trate o
-   item como erro de digitação: **a restrição é sobre a horizontal**.
-
-3. **RGB do cinza institucional (pág. 14).** O manual declara HEXA `#767778`
-   com RGB `119, 120, 123`. `#767778` corresponde a RGB `118, 119, 120`; o
-   trio `119, 120, 123` é o RGB de `#77787B`, o cinza da edição anterior do
-   manual. **Prevalece o HEXA** — é o valor que rege qualquer aplicação
-   digital. (O vermelho não tem esse problema: `#B53437` = RGB `181, 52, 55`,
-   exatamente como declarado.)
 
 ### Contrastes declarados × recalculados
 
