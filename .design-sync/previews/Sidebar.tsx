@@ -16,7 +16,7 @@ const items: NavItem[] = [
 
 export function ComItemAtivo() {
   return (
-    <div style={{ width: 260, border: '1px solid #e5e7eb' }}>
+    <div style={{ width: 260, border: '1px solid var(--color-border)' }}>
       <Sidebar items={items} activeKey="tarefas-abertas" />
     </div>
   )

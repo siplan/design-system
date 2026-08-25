@@ -10,7 +10,7 @@ export interface HeaderProps {
 
 /**
  * Cabeçalho do shell. Ao contrário do Integra original — onde os botões
- * do header (logout, alternância de tema) usavam `style="color: #B51D22"`
+ * do header (logout, alternância de tema) usavam `style="color: #B53437"`
  * inline — aqui as ações vêm como `ReactNode` e devem usar `Button`/`Badge`
  * do próprio design system.
  */

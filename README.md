@@ -10,28 +10,31 @@ os valores estruturais (raios, sombras, layout) foram extraídos do
 código-fonte real do Integra, os componentes foram implementados do zero
 em React corrigindo os problemas de implementação e de UX identificados no
 levantamento, e a cor de marca, o cinza institucional e a tipografia seguem
-o [Guia de Utilização da Marca](brand/Guia%20de%20Utilização%20da%20Marca.md) —
-não o que estava hardcoded no Integra original.
+o [Guia de Utilização da Marca](brand/Guia%20de%20Utilização%20da%20Marca.md)
+(**Edição 2026 · v2.0**) — não o que estava hardcoded no Integra original.
 
 ## O que foi mantido (identidade visual)
 
-- **Cor de marca**: vermelho `#B51D22` (HEXA/RGB/CMYK oficiais do Guia de
-  Utilização da Marca), escala 50–950 derivada desse valor-base por mistura
-  com branco/preto.
-- **Cinza institucional**: `#77787B` (Guia de Utilização da Marca) — usado
-  como base para texto secundário, bordas e superfícies neutras, no lugar do
-  slate-blue genérico (`#667085`/`#94a3b8`) que não tinha relação com a
-  marca.
+- **Cor de marca**: vermelho `#B53437` (HEXA/RGB/CMYK/Pantone oficiais do Guia
+  de Utilização da Marca, edição 2026), escala 50–950 derivada desse
+  valor-base por mistura com branco/preto.
+- **Cinza institucional**: `#767778` (edição 2026, Pantone Cool Gray 9 C) —
+  no lugar do slate-blue genérico (`#667085`/`#94a3b8`) que não tinha relação
+  com a marca.
+- **Paleta ampliada**: as 13 cores nomeadas do guia (complementares,
+  temáticas, de apoio e de texto) viraram tokens — os neutros de superfície,
+  borda e texto do design system agora **são** os valores do manual, não
+  aproximações.
 - **Tipografia**: `Roboto` como fonte principal e `Lucida Sans Unicode` como
-  apoio, ambas do Guia de Utilização da Marca — o app consumidor deve carregar
-  "Roboto" (Google Fonts ou self-hosted) para que a pilha resolva a família
-  correta.
+  apoio, ambas embutidas no pacote (`src/fonts.css`), com os cinco pesos
+  autorizados pelo guia (Light 300 → Black 900) e a escala de texto/entrelinha
+  da hierarquia tipográfica (§03.4).
 - **Raio de card padrão**: `8px` (era, disparado, o valor mais repetido no
   código-fonte).
 - **Sombra de card**: o "preto azulado" `rgba(15, 23, 42, *)` usado em todas
   as variações de sombra do sistema original, consolidado em 3 níveis.
 - **Destaque de item ativo/marca**: sombra interna vermelha à esquerda
-  (`inset 3px 0 0 #B51D22`), usada em menus e linhas de destaque.
+  (`inset 3px 0 0 #B53437`), usada em menus e linhas de destaque.
 - **Estrutura do layout**: barra de destaque no topo, sidebar colapsável,
   header fixo — mesma composição visual do layout principal do Integra.
 - **Realce semântico de linhas de tabela** (pendente / aprovado / erro),
@@ -50,7 +53,7 @@ não o que estava hardcoded no Integra original.
 | Comportamento "é mobile" recalculado em JavaScript (`windowWidth < 768`) a cada resize, duplicando o que o CSS já resolveria | Responsividade via CSS grid + media query, sem JS de layout |
 | Árvore de navegação inteira do sistema hardcoded dentro do componente de layout | `AppShell`/`Sidebar` recebem `navItems` por prop |
 | Duas linguagens visuais coexistindo sem ponte (legado AdminLTE/Bootstrap/azul vs. novo Vue/PrimeVue/vermelho) | Design system único, sem herdar o legado |
-| `font-weight` fora de escala (750, 650, 800/900 usados livremente) | Escala fechada: 400/500/600/700 |
+| `font-weight` fora de escala (750, 650, 800/900 usados livremente) | Escala fechada nos pesos autorizados pelo guia: 300/400/500/700/900 (SemiBold 600 não é autorizado — `--font-weight-semibold` fica como alias depreciado de Medium) |
 | Vermelhos "primos" ad-hoc para estados de erro/alerta, sem relação com a escala de marca | Paleta semântica fixa (`--color-danger`, `--color-warning`, `--color-success`, `--color-info`), independente da escala de marca |
 
 ## Padrões de UX a evitar em novos designs (identificados no Integra original)
@@ -66,6 +69,41 @@ construídos com estes componentes.
 | As abas internas (Tarefa / Anexo / Checklist / Fluxograma / Atendimentos / Histórico) somem ao rolar a tela para baixo, porque não são solidárias ao cabeçalho | Abas fixas, ancoradas ao cabeçalho (sticky), sempre visíveis independente do scroll do conteúdo |
 | As abas atuais são links em estilo pouco unificado e com altura maior que o necessário | Um único componente de abas, mais compacto (menor altura), com estilo consistente entre todos os itens |
 | A tela é dividida em duas colunas (lado esquerdo / lado direito) dentro do modal, e o conjunto de conteúdo gera rolagem vertical na área principal — em especial o bloco de "Histórico da Alteração" (comentário + checklists de aviso), que ocupa espaço permanente mesmo sendo relevante só no momento de salvar | Modais de detalhe/edição não devem depender de rolagem vertical no corpo principal; conteúdo que só é relevante no momento de confirmar a ação (ex.: histórico/comentário de alteração) deve migrar para um modal de confirmação separado, aberto ao clicar em "Salvar" |
+
+## Conformidade com o manual da marca (Edição 2026 · v2.0)
+
+O que do guia **está** nos tokens:
+
+| Capítulo do guia | Como aparece aqui |
+|---|---|
+| §02.1 Cores institucionais | `--color-primary-500` (`#B53437`) e `--color-text-subtle` (`#767778`) |
+| §02.2 Paleta ampliada | `--color-accent-*` (bordô, azul-grafite, verde, dourado), `--color-surface-areia` / `-off-white` / `-branco-suave`, e os neutros de superfície/borda/texto |
+| §02.4 Contraste | todo par texto/fundo dos dois temas conferido pela fórmula do WCAG 2.1; os valores estão comentados linha a linha em `src/tokens.css` |
+| §03.1–03.2 Tipografia | `--font-sans` + `src/fonts.css` (Roboto variável 100–900, Lucida Sans Unicode, Arial como substituta de sistema) |
+| §03.4 Hierarquia | `--text-xs` a `--text-3xl`, `--leading-title` / `-subtitle` / `-body` / `-caption`, `--tracking-label` |
+| §04.2 Iconografia | `--icon-size` (24px), `--icon-stroke` (2px), `--icon-padding` (2px) |
+
+O que do guia **não** entra no design system, e por quê:
+
+- **Cursiva Vanilla Macchiato (§03.3)** — o guia restringe o uso a destaque
+  editorial curto (kicker de capa, chamada de seção). Não tem papel em
+  interface, e a fonte não está licenciada/embutida neste pacote.
+- **Grafismos de apoio (§04.1)** — faixa de eixo, elipse inclinada, trama e
+  barras de ritmo são elementos de peça gráfica, não de UI. Se um app quiser
+  usá-los, deve fazê-lo com os `--color-accent-*`, respeitando a área de
+  proteção da marca.
+- **Proporção de uso 40/20/10/30 (§02.3)** — é diretriz de composição de
+  peça, não algo que um token possa impor. Vale como orientação: **o vermelho
+  é acento, não plano de fundo padrão**.
+- **Assinaturas, área de proteção e redução mínima (§01)** — regras sobre os
+  arquivos da marca. O pacote não embute o logotipo; use sempre os arquivos
+  originais fornecidos pela Planejar.
+
+Duas divergências do próprio PDF foram identificadas e estão registradas no
+[Apêndice A do guia](brand/Guia%20de%20Utilização%20da%20Marca.md#apêndice-a--divergências-e-erros-do-pdf-original):
+o RGB declarado para o cinza institucional não corresponde ao HEXA (prevalece
+o HEXA) e alguns contrastes declarados divergem do recálculo WCAG (sem mudar
+nenhum veredicto, exceto vermelho sobre areia, que só passa em texto grande).
 
 ## Componentes
 

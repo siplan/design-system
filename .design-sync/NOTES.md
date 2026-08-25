@@ -189,6 +189,83 @@ descartadas a pedido do usuário; o histórico de por que a cor mudou continua
 registrado só aqui no NOTES.md, na entrada "Correção da cor de marca" acima).
 Referências atualizadas em `README.md`, `src/tokens.css` e `src/fonts.css`.
 
+## Nova edição do manual da marca — Edição 2026 · v2.0 (25/08/2026)
+
+O usuário entregou `brand/Guia de Utilização da Marca - 082026.pdf` (29 páginas,
+produzido em PowerPoint pela Comunicação | Institucional da Planejar), que
+**substitui** o manual de 2022 (`Manual da Marca.cdr`, agência Institucional
+Comunicação). O PDF antigo foi removido do repositório e
+`brand/Guia de Utilização da Marca.md` foi reescrito como transcrição integral
+do novo — incluindo **descrição analisada de cada página ilustrada** (diagramas
+de construção, grade da área de proteção, amostras de cor, exemplos de
+aplicação), a pedido do usuário, para que as regras que só existem no desenho
+continuem recuperáveis a partir do `.md`.
+
+### O que a marca mudou
+
+| Item | 2022 | 2026 · v2.0 |
+|---|---|---|
+| Vermelho | `#B51D22` (S 72%) | **`#B53437`** (S 55%) · Pantone 7628 UP |
+| Cinza institucional | `#77787B` · Pantone 418 U | **`#767778`** · Pantone Cool Gray 9 C |
+| Paleta | só as duas cores obrigatórias | + **13 cores nomeadas** (complementares, temáticas, apoio, textos) |
+| Tipografia | 2 famílias, sem pesos | mesmas 2 famílias + **pesos autorizados** (Light→Black), hierarquia 40/44 · 24/29 · 16/26 · 13/20 · 12, e a cursiva **Vanilla Macchiato** para destaque editorial |
+| Novidades | — | símbolo isolado, grafismos de apoio, iconografia (24px/2px), tom de voz, acessibilidade (WCAG), proporção de uso 40/20/10/30 |
+
+A matiz do vermelho **não** mudou (358° nas duas edições) — só a saturação. Foi
+isso que permitiu manter o tema escuro intacto.
+
+### O que mudou no design system
+
+- `src/tokens.css`: rampa da marca 50–950 recalculada do novo valor-base pelos
+  mesmos fatores de mistura da rampa anterior; superfícies/bordas/textos do tema
+  claro trocados pelos valores **nomeados** do guia (§02.2) em vez das
+  aproximações que estavam lá; novos tokens `--color-accent-*`,
+  `--color-surface-areia`/`-off-white`/`-branco-suave`, escala tipográfica
+  (`--text-caption`, `--text-3xl`, `--leading-*`, `--tracking-label`), pesos
+  (`--font-weight-light`/`-black`) e grade de ícone (`--icon-*`).
+- `src/fonts.css`: `font-weight` do `@font-face` do Roboto de `400 700` para
+  `100 900` — o arquivo variável sempre cobriu 100–900, e a declaração curta
+  fazia o navegador **sintetizar** Light e Black em vez de usar as instâncias
+  reais. Agora que o guia autoriza esses dois pesos, isso passou a importar.
+- `--font-weight-semibold` (600) **depreciado**: não é peso autorizado. Virou
+  alias de Medium; os três usos internos migraram para `-medium` (Button, Badge)
+  e `-bold` (título de Card).
+- Ganho colateral de acessibilidade no tema claro: texto secundário de 4,41:1
+  para **8,83:1**, terciário de 2,40:1 (reprovado até para UI) para **4,49:1**.
+- **Tema escuro: nenhum valor alterado**, conforme decisão do usuário — os
+  degraus são definidos por papel e continuam atendendo os mínimos com a cor
+  nova. Só um número se moveu: Marca 500 sobre a base, de 2,82:1 para 3,13:1
+  (passou a atender o mínimo de 3:1 para UI; segue proibida como cor de texto).
+
+### Erros do PDF novo (registrados, não corrigidos em silêncio)
+
+O Apêndice A do `.md` lista tudo. Os dois que importam para quem consome o
+manual:
+
+1. **Uso incorreto nº 03** diz "NÃO usar a Marca na posição **vertical**", o que
+   contradiz a pág. 05 ("a versão vertical é a assinatura preferencial"). A
+   edição 2022 trazia a regra certa: a restrição é sobre a **horizontal**.
+2. **RGB do cinza institucional** declarado como `119, 120, 123`, que é o RGB de
+   `#77787B` (edição anterior), não de `#767778` (`118, 119, 120`). **Prevalece
+   o HEXA** — foi o que entrou nos tokens.
+
+Também há divergência entre os contrastes declarados no manual e o recálculo
+WCAG 2.1 sobre os próprios hexadecimais dele. Nenhum veredicto muda, exceto
+**vermelho sobre areia**: o manual agrupa em 5,7:1, mas o par real dá 4,39:1 —
+abaixo do mínimo para texto corrido. Em digital, só texto grande.
+
+### Sync concluído (25/08/2026)
+
+`/design-sync` rodado: driver de re-sync (`resync.mjs`) com âncora
+`_ds_sync.json` remota — 9 componentes carried-forward (`unchanged`), só
+`Sidebar` mudou (preview `.tsx` trocou `border: '1px solid #e5e7eb'` hardcoded
+por `var(--color-border)`, cotejando com a nova rampa neutra §02.2). Render
+check 10/10 limpo, célula `ComItemAtivo` regradada `good` (item ativo já
+mostra o vermelho `#b53437`). Caminho atômico (projeto já tinha conteúdo de
+sync anterior): plano com writes completos e `deletePaths: []`, 60 arquivos
+enviados + sentinel + `_ds_sync.json` por último. `list_files` pós-upload
+confere. Projeto: `https://claude.ai/design/p/f8284aab-f114-4911-9806-95569d12e899`.
+
 ## Re-sync risks
 
 - Se novos componentes forem adicionados a `src/index.ts`, a próxima sync os pega
@@ -206,5 +283,6 @@ Referências atualizadas em `README.md`, `src/tokens.css` e `src/fonts.css`.
 - Qualquer novo componente que use `var(--color-primary-500)` (ou outro degrau fixo da
   escala) diretamente como cor de *texto* ou *borda de estado* deve, em vez disso, usar
   `--color-primary-text`/`--color-primary-surface-text` (ou criar um par análogo) — senão o
-  tema escuro herda o mesmo problema de contraste (~2.6:1) que motivou a introdução desses
+  tema escuro herda o mesmo problema de contraste (3,13:1 com a cor da edição 2026 — passa
+  o mínimo de UI, mas fica longe dos 4,5:1 de texto) que motivou a introdução desses
   tokens em `Button.css`/`AppShell.css`.

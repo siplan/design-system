@@ -1,7 +1,8 @@
 ## Integra Design System — como usar
 
 Biblioteca de componentes React (`@planejar/integra-design-system`) com identidade visual
-própria (vermelho de marca `#B51D22`). Sem provider/wrapper de tema — os componentes
+própria (vermelho de marca `#B53437`, Guia de Utilização da Marca — Edição 2026 · v2.0).
+Sem provider/wrapper de tema — os componentes
 importam seu próprio CSS e funcionam standalone; basta `import '@planejar/integra-design-system/styles.css'`
 uma vez na raiz do app.
 
@@ -29,8 +30,19 @@ design system diretamente via `var(--*)` — nunca hardcode cor/espaçamento/rai
 Tokens mais usados: cor (`--color-surface`, `--color-border`, `--color-text`, `--color-text-muted`,
 `--color-primary-500`, `--color-danger` / `-warning` / `-success` / `-info`), espaçamento
 (`--space-xs` a `--space-2xl`), raio (`--radius-sm` / `-md` / `-lg` / `-pill`), sombra
-(`--shadow-sm` / `-md` / `-brand`), tipografia (`--font-sans`, `--text-xs` a `--text-2xl`,
-`--font-weight-regular` / `-medium` / `-semibold` / `-bold`).
+(`--shadow-sm` / `-md` / `-brand`), tipografia (`--font-sans`, `--text-xs` a `--text-3xl`,
+`--leading-title` / `-subtitle` / `-body` / `-caption`, `--tracking-label`,
+`--font-weight-light` / `-regular` / `-medium` / `-bold` / `-black`).
+
+Da paleta ampliada do manual (Edição 2026): `--color-accent-bordo` / `-azul-grafite` /
+`-verde` / `-dourado` e `--color-surface-areia` / `-off-white` / `-branco-suave`. Regra do
+manual: **no máximo duas cores de apoio por peça**, e o vermelho é acento (~20% da
+composição), nunca plano de fundo padrão. Ícones seguem `--icon-size` (24px) com
+`--icon-stroke` (2px) e são sempre monocromáticos.
+
+`--font-weight-semibold` (600) está **depreciado** — não é um peso autorizado pelo manual;
+hoje é alias de `--font-weight-medium`. Use `-medium` para rótulos/botões e `-bold` para
+títulos e subtítulos.
 
 ### Onde está a verdade
 

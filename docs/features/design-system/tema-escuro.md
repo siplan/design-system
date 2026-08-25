@@ -2,7 +2,7 @@
 
 | Versão | Atualizado em |
 |--------|---------------|
-| 1      | 19/08/2026    |
+| 2      | 25/08/2026    |
 
 Guia de cor, contraste e uso do tema escuro do `@planejar/integra-design-system`.
 Ativado por `data-theme="dark"` no elemento raiz — os tokens de `src/tokens.css`
@@ -21,22 +21,23 @@ valores abaixo foram calibrados na prática, e daí voltaram para cá (§11).
 ## 1. Paleta de marca
 
 Rampa vermelho-institucional derivada do valor oficial do
-[Guia de Utilização da Marca](../../../brand/Guia%20de%20Utilização%20da%20Marca.md).
+[Guia de Utilização da Marca](../../../brand/Guia%20de%20Utilização%20da%20Marca.md)
+(**Edição 2026 · v2.0** — `#B53437`, que substituiu o `#B51D22` da edição 2022).
 É a mesma do tema claro — o escuro reaproveita a marca, não cria uma nova.
 
 | Tom | Claro | Escuro | Uso |
 |---|---|---|---|
-| Marca 50 | `#fbf4f4` `rgb(251, 244, 244)` | `#321a1c` `rgb(50, 26, 28)` | Fundo de destaque discreto (item ativo de menu, hover de variante `outline`) |
-| Marca 100 | `#f8e8e9` `rgb(248, 232, 233)` | `#481b1d` `rgb(72, 27, 29)` | Glow de foco do `Input` |
-| Marca 200 | `#efcdce` `rgb(239, 205, 206)` | — | Degrau intermediário claro |
-| Marca 300 | `#e4abad` `rgb(228, 171, 173)` | *(mesmo valor)* | No escuro, texto de marca sobre a Marca 50 (`--color-primary-surface-text`) |
-| Marca 400 | `#d47c7f` `rgb(212, 124, 127)` | `#e7696e` `rgb(231, 105, 110)` | Texto/ícone/borda de destaque sobre fundo escuro (hover, foco, item selecionado) |
-| **Marca 500** | `#b51d22` `rgb(181, 29, 34)` | *(mesmo valor)* | Vermelho "oficial" da marca — preenchimento sólido de botão/ícone e faixa do topo. **Não usar como cor de texto no escuro** (ver §5) |
-| Marca 600 | `#9c191d` `rgb(156, 25, 29)` | — | Hover do botão primário (claro) |
-| Marca 700 | `#7f1418` `rgb(127, 20, 24)` | — | Degrau intermediário escuro |
-| Marca 800 | `#641013` `rgb(100, 16, 19)` | — | Degrau intermediário escuro |
-| Marca 900 | `#480c0e` `rgb(72, 12, 14)` | — | Degrau intermediário escuro |
-| Marca 950 | `#2d0708` `rgb(45, 7, 8)` | — | Degrau mais escuro da rampa |
+| Marca 50 | `#fbf5f5` `rgb(251, 245, 245)` | `#321a1c` `rgb(50, 26, 28)` | Fundo de destaque discreto (item ativo de menu, hover de variante `outline`) |
+| Marca 100 | `#f8ebeb` `rgb(248, 235, 235)` | `#481b1d` `rgb(72, 27, 29)` | Glow de foco do `Input` |
+| Marca 200 | `#efd2d3` `rgb(239, 210, 211)` | — | Degrau intermediário claro |
+| Marca 300 | `#e4b4b5` `rgb(228, 180, 181)` | *(mesmo valor)* | No escuro, texto de marca sobre a Marca 50 (`--color-primary-surface-text`) |
+| Marca 400 | `#d4898b` `rgb(212, 137, 139)` | `#e7696e` `rgb(231, 105, 110)` | Texto/ícone/borda de destaque sobre fundo escuro (hover, foco, item selecionado) |
+| **Marca 500** | `#b53437` `rgb(181, 52, 55)` | *(mesmo valor)* | Vermelho "oficial" da marca — preenchimento sólido de botão/ícone e faixa do topo. **Não usar como cor de texto no escuro** (ver §5) |
+| Marca 600 | `#9b2d2f` `rgb(155, 45, 47)` | — | Hover do botão primário (claro) |
+| Marca 700 | `#7f2426` `rgb(127, 36, 38)` | — | Degrau intermediário escuro |
+| Marca 800 | `#641d1e` `rgb(100, 29, 30)` | — | Degrau intermediário escuro |
+| Marca 900 | `#4a1516` `rgb(74, 21, 22)` | — | Degrau intermediário escuro |
+| Marca 950 | `#2c0d0d` `rgb(44, 13, 13)` | — | Degrau mais escuro da rampa |
 
 **A Marca 500 nunca muda entre temas.** É o mesmo vermelho institucional nos dois,
 e continua sendo o fundo sólido do botão primário e da faixa de destaque do topo.
@@ -47,13 +48,13 @@ O que inverte de lado na rampa são os **tokens de papel**, não o valor de marc
 | `--color-primary-text` | Marca 500 | Marca 400 | Vermelho legível como texto/ícone sobre a superfície |
 | `--color-primary-surface-text` | Marca 600 | Marca 300 | Vermelho legível como texto sobre a Marca 50 |
 
-**Histórico da Marca 400 no escuro:** herdava o mesmo `#d47c7f` do claro (degrau
+**Histórico da Marca 400 no escuro:** herdava o mesmo tom do degrau 400 do claro (hoje `#d4898b`; degrau
 original da rampa, calibrado pro fundo claro). Usuário relatou que o tom lia como
 "rosa/salmão" em vez de "vinho" nos pontos onde aparece no escuro (hover e item
 ativo do menu, rótulos de formulário) — causa: saturação baixa (51%) daquele
 degrau. Corrigido para `#e7696e`, mantendo o mesmo matiz (358°, igual à Marca 500)
 e a mesma luminosidade perceptual, com saturação elevada a 72% — igual à saturação
-da própria Marca 500. Só o escuro muda: o claro segue com `#d47c7f`.
+da própria Marca 500. Só o escuro muda: o claro segue com `#d4898b`.
 
 ## 2. Superfícies
 
@@ -63,11 +64,14 @@ Camadas de profundidade, do fundo para a frente:
 |---|---|---|---|---|
 | Superfície base | `--color-surface` | `#ffffff` `rgb(255, 255, 255)` | `#121212` `rgb(18, 18, 18)` | Fundo padrão de página, card e diálogo |
 | Superfície secundária | `--color-surface-muted` | `#f7f7f7` `rgb(247, 247, 247)` | `#1b1b1b` `rgb(27, 27, 27)` | Painéis, `thead` de tabela, fundo do `AppShell`, agrupadores |
-| Superfície elevada | `--color-surface-alta` | `#ececec` `rgb(236, 236, 236)` | `#252525` `rgb(37, 37, 37)` | Estado de hover, foco ou seleção |
-| Borda | `--color-border` | `#dddde0` `rgb(221, 221, 224)` | `#3c3c3c` `rgb(60, 60, 60)` | Linha divisória entre campos e blocos |
-| Borda discreta | `--color-border-muted` | `#ebebeb` `rgb(235, 235, 235)` | `#252525` `rgb(37, 37, 37)` | Divisória ainda mais sutil que a borda padrão |
+| Superfície elevada | `--color-surface-alta` | `#eaecee` `rgb(234, 236, 238)` | `#252525` `rgb(37, 37, 37)` | Estado de hover, foco ou seleção |
+| Borda | `--color-border` | `#c9cdd1` `rgb(201, 205, 209)` | `#3c3c3c` `rgb(60, 60, 60)` | Linha divisória entre campos e blocos |
+| Borda discreta | `--color-border-muted` | `#eaecee` `rgb(234, 236, 238)` | `#252525` `rgb(37, 37, 37)` | Divisória ainda mais sutil que a borda padrão |
 
 Luminância relativa dos degraus, no escuro: 0,60% → 1,10% → 1,85% → 4,52%.
+No claro: 100% → 93,0% → 84,0%. As três superfícies e as duas linhas do tema
+claro são cores nomeadas da paleta ampliada do guia (Cinza Muito Claro, Cinza
+Claro e Cinza Médio Claro) — antes eram cinzas neutros aproximados por nós.
 
 **Regra de composição:** um componente novo deve subir apenas um degrau de
 superfície em relação ao pai — nunca pular direto da base para a camada elevada
@@ -89,13 +93,21 @@ luminância relativa, para manter a mesma sensação de profundidade.
 
 | Nível | Token | Claro | Escuro | Papel |
 |---|---|---|---|---|
-| Texto principal | `--color-text` | `#1e1e1f` `rgb(30, 30, 31)` | `#d8d8db` `rgb(216, 216, 219)` | Título, valor, conteúdo lido ativamente |
-| Texto secundário | `--color-text-muted` | `#77787b` `rgb(119, 120, 123)` | `#a8a8ac` `rgb(168, 168, 172)` | Legenda, rótulo de apoio, `th` de tabela |
-| **Texto terciário** | `--color-text-subtle` | `#a7a7a9` `rgb(167, 167, 169)` | `#737376` `rgb(115, 115, 118)` | Texto desabilitado/mínimo — **não usar para conteúdo ativo** (ver §5) |
+| Texto principal | `--color-text` | `#242426` `rgb(36, 36, 38)` | `#d8d8db` `rgb(216, 216, 219)` | Título, valor, conteúdo lido ativamente |
+| Texto secundário | `--color-text-muted` | `#4a4a4d` `rgb(74, 74, 77)` | `#a8a8ac` `rgb(168, 168, 172)` | Legenda, rótulo de apoio, `th` de tabela |
+| **Texto terciário** | `--color-text-subtle` | `#767778` `rgb(118, 119, 120)` | `#737376` `rgb(115, 115, 118)` | Texto desabilitado/mínimo — **não usar para conteúdo ativo** (ver §5) |
 
-O cinza secundário do claro (`#77787b`) é o **cinza institucional oficial** do
-guia da marca, não um cinza-azulado genérico; toda a rampa neutra guarda essa
-matiz.
+Os três níveis do tema claro são exatamente as cores da seção **"Textos e
+contrastes"** da paleta ampliada do guia (Edição 2026 · §02.2): Grafite Profundo
+(`#242426`), Cinza Carvão (`#4a4a4d`) e o **cinza institucional oficial**
+(`#767778`, Pantone Cool Gray 9 C) — nenhum cinza-azulado genérico, e nenhuma
+aproximação nossa.
+
+**Mudança na Edição 2026:** o cinza institucional era o texto **secundário** do
+tema claro. Ele dá 4,49:1 sobre branco — limítrofe para leitura corrida —, e o
+guia passou a nomear explicitamente uma cor para texto secundário (Cinza Carvão,
+8,83:1). O institucional desceu um degrau, para o papel de texto terciário/
+desabilitado, onde 4,49:1 é folgado.
 
 **Histórico do texto principal no escuro:** era `#ececee` `rgb(236, 236, 238)`,
 quase-branco puro. Quando a superfície base escureceu de `#19191b` para `#121212`
@@ -152,9 +164,9 @@ no tema escuro, com a superfície base `#121212`.
 | Alerta `#fbbf24` | 11,22:1 | — | 8,28:1 (idem) |
 | Sucesso `#4ade80` | 10,75:1 | — | 8,04:1 (idem) |
 | Informação `#60a5fa` | 7,37:1 | — | 6,24:1 (idem) |
-| `#fff` sobre Marca 500 (botão primário) | 6,64:1 | — | — |
+| `#fff` sobre Marca 500 (botão primário) | 5,98:1 | — | — |
 | `#fff` sobre erro sólido `#b91c1c` | 6,47:1 | — | — |
-| Marca 300 sobre Marca 50 | 8,25:1 | — | — |
+| Marca 300 sobre Marca 50 | 8,84:1 | — | — |
 
 **Duas ressalvas a respeitar:**
 
@@ -162,12 +174,16 @@ no tema escuro, com a superfície base `#121212`.
    apenas para texto grande ou elementos de interface, **não para texto normal de
    leitura**. É o nível certo para "desabilitado", errado para qualquer conteúdo
    que o usuário precise ler ativamente.
-2. **Marca 500** (`#b51d22`, 2,82:1 sobre a base) tem contraste insuficiente até
-   para o padrão mais permissivo quando usada como cor de texto sobre fundo
-   escuro. Fica restrita a preenchimento sólido (com texto claro em cima) ou
-   detalhes decorativos — **nunca como cor de letra**. Quando o efeito desejado é
+2. **Marca 500** (`#b53437`, 3,13:1 sobre a base) passa o mínimo de 3:1 para
+   elemento gráfico/UI, mas fica **muito abaixo dos 4,5:1 de texto** sobre fundo
+   escuro. Fica restrita a preenchimento sólido (com texto claro em cima), borda
+   ou detalhe decorativo — **nunca como cor de letra**. Quando o efeito desejado é
    "vermelho de destaque legível", o tom correto é a Marca 400
    (`--color-primary-text` resolve isso automaticamente por tema).
+
+   *(Na edição 2022 da marca esse número era 2,82:1 — o vermelho novo, menos
+   saturado, subiu para 3,13:1 e passou a atender o mínimo de UI. A regra de uso
+   não muda: segue proibido como cor de texto no escuro.)*
 
 A borda entre campos (`#3c3c3c`, 1,70:1) tem contraste propositalmente baixo — é
 só uma linha divisória decorativa. Nenhum estado importante (erro, foco, seleção)
@@ -278,3 +294,25 @@ ser removidos por ausência.
 - Aplicação aos componentes: `src/components/*/*.css`
 - Guia da marca: [`brand/Guia de Utilização da Marca.md`](../../../brand/Guia%20de%20Utilização%20da%20Marca.md)
 - Consumidor e origem da calibragem: SIPLAN-v2 (§11)
+
+## 13. Atualização para a Edição 2026 da marca (25/08/2026)
+
+A nova edição do manual trocou a cor de marca (`#B51D22` → `#B53437`), o cinza
+institucional (`#77787B` → `#767778`) e passou a especificar uma **paleta
+ampliada** com as cores de superfície, linha e texto.
+
+O que mudou aqui:
+
+- **Rampa da marca** recalculada inteira a partir do novo valor-base, pelos
+  mesmos fatores de mistura da rampa anterior — a matiz oficial (358°) é a mesma
+  nas duas edições, então só a saturação (72% → 55%) e a luminância dos degraus
+  mudaram.
+- **Superfícies, bordas e textos do tema claro** passaram a ser os valores
+  nomeados do guia (§02.2) em vez de aproximações. Efeito colateral positivo: o
+  texto secundário do claro subiu de 4,41:1 para 8,83:1 e o terciário, de 2,40:1
+  (reprovado até para UI) para 4,49:1.
+- **Tema escuro: nenhum valor alterado.** Todos os degraus daqui são definidos
+  por papel e continuam atendendo os mínimos com a cor nova — a Marca 400
+  (`#e7696e`) segue coerente porque foi calibrada pela matiz da marca, que não
+  mudou. O único número que se moveu é o da Marca 500 sobre a base (2,82:1 →
+  3,13:1), e a regra de uso dela não mudou.

@@ -1,23 +1,33 @@
 /**
- * Tokens alinhados ao Guia de Utilização da Marca Planejar — ver
- * brand/Guia de Utilização da Marca.md. Cor de marca e cinza institucional vêm
- * dos valores oficiais do guia (HEXA/RGB/CMYK); a escala 50–950 e os tons
- * de superfície/texto são derivados desses dois valores-base por
- * mistura com branco/preto, mantendo a matiz oficial em toda a rampa.
+ * Tokens alinhados ao Guia de Utilização de Identidade Visual Planejar,
+ * Edição 2026 · v2.0 — ver brand/Guia de Utilização da Marca.md.
+ *
+ * Cor de marca, cinza institucional, paleta ampliada, famílias tipográficas e
+ * escala de texto vêm dos valores oficiais do guia. A rampa 50–950 do vermelho
+ * é derivada do valor-base por mistura com branco/preto, mantendo a matiz
+ * oficial (358°) em toda a escala — o guia especifica um único vermelho, não
+ * uma rampa, e uma UI precisa de degraus para hover/fundo/borda.
+ *
+ * Quando o guia declara um contraste que não bate com o cálculo do WCAG 2.1
+ * sobre os próprios hexadecimais dele, vale o cálculo — as divergências estão
+ * documentadas no Apêndice A do guia.
  */
 :root {
-  /* ---- Cor de marca (base oficial: HEXA #B51D22, RGB 181.29.34, CMYK 20.98.90.12) ---- */
-  --color-primary-50: #fbf4f4;
-  --color-primary-100: #f8e8e9;
-  --color-primary-200: #efcdce;
-  --color-primary-300: #e4abad;
-  --color-primary-400: #d47c7f;
-  --color-primary-500: #b51d22;
-  --color-primary-600: #9c191d;
-  --color-primary-700: #7f1418;
-  --color-primary-800: #641013;
-  --color-primary-900: #480c0e;
-  --color-primary-950: #2d0708;
+  /* ---- Cor de marca (base oficial: HEXA #B53437, RGB 181.52.55,
+     CMYK 20.100.100.12, Pantone 7628 UP) ----
+     Edição 2026 substituiu o #B51D22 da edição 2022: mesma matiz, saturação
+     mais baixa (72% → 55%). Toda a rampa abaixo foi recalculada. */
+  --color-primary-50: #fbf5f5;
+  --color-primary-100: #f8ebeb;
+  --color-primary-200: #efd2d3;
+  --color-primary-300: #e4b4b5;
+  --color-primary-400: #d4898b;
+  --color-primary-500: #b53437;   /* 5,98:1 sobre branco (AA texto normal) */
+  --color-primary-600: #9b2d2f;   /* 7,47:1 sobre branco */
+  --color-primary-700: #7f2426;
+  --color-primary-800: #641d1e;
+  --color-primary-900: #4a1516;
+  --color-primary-950: #2c0d0d;
   /* Tokens de PAPEL (não de degrau da escala): qual tom de vermelho fazer o
      trabalho de "texto legível sobre a superfície" ou "fundo sutil de
      destaque" — o degrau certo pra isso muda de claro pra escuro (mesma
@@ -27,22 +37,41 @@
   --color-primary-text: var(--color-primary-500);
   --color-primary-surface-text: var(--color-primary-600);
 
-  /* ---- Neutros / superfície (base oficial: cinza institucional HEXA #77787B,
-     RGB 119.120.123, Pantone 418 U — substitui o slate-blue genérico usado
-     antes, sem relação com a identidade da marca) ---- */
+  /* ---- Neutros / superfície ----
+     Valores da seção "Cores de apoio" e "Textos e contrastes" da paleta
+     ampliada (guia §02.2), que é onde a edição 2026 define explicitamente o
+     que é fundo, o que é linha e o que é texto. O cinza institucional
+     (#767778, Pantone Cool Gray 9 C) é o degrau mais escuro dessa faixa que
+     ainda é neutro de apoio — por isso ele aparece como --color-text-subtle,
+     não mais como texto secundário (4,49:1 é limítrofe para leitura). */
   --color-surface: #ffffff;
-  --color-surface-muted: #f7f7f7;
+  --color-surface-muted: #f7f7f7;    /* guia: Cinza Muito Claro — cartões, tabelas */
   /* Terceiro nível de superfície (hover/foco/seleção), entre --color-surface-muted
      e --color-border. Nasceu como extensão local no SIPLAN-v2 e voltou pra cá na
      sincronização: sem ele, hover era feito com --color-border-muted, que é um
-     token de LINHA, não de superfície. Rampa clara: 100% → 93,0% → 83,9% de
+     token de LINHA, não de superfície. Rampa clara: 100% → 93,0% → 84,0% de
      luminância relativa. */
-  --color-surface-alta: #ececec;
-  --color-border: #dddde0;
-  --color-border-muted: #ebebeb;
-  --color-text: #1e1e1f;
-  --color-text-muted: #77787b;
-  --color-text-subtle: #a7a7a9;
+  --color-surface-alta: #eaecee;     /* guia: Cinza Claro — fundos secundários */
+  --color-border: #c9cdd1;           /* guia: Cinza Médio Claro — bordas, linhas, divisores */
+  --color-border-muted: #eaecee;     /* mesmo valor de surface-alta, papel de LINHA sutil */
+  --color-text: #242426;             /* guia: Grafite Profundo — 15,49:1 sobre branco (AAA) */
+  --color-text-muted: #4a4a4d;       /* guia: Cinza Carvão — 8,83:1 sobre branco (AAA) */
+  --color-text-subtle: #767778;      /* guia: cinza institucional — 4,49:1, só apoio/desabilitado */
+
+  /* ---- Paleta ampliada (guia §02.2) ----
+     Valores de marca fixos: NÃO se invertem por tema, porque não são papéis
+     de UI e sim cores nomeadas do manual. Regra do guia: no máximo duas
+     cores de apoio por peça, e nunca para reproduzir a marca.
+     No tema escuro, bordô e azul-grafite só servem como SUPERFÍCIE (escuros
+     demais para texto); verde e dourado servem como texto (3,47:1 e 7,79:1
+     sobre a superfície base do escuro). */
+  --color-accent-bordo: #572429;        /* complementar — profundidade em títulos/fundos */
+  --color-accent-azul-grafite: #303846; /* complementar — sobriedade em títulos/gráficos */
+  --color-accent-verde: #477454;        /* temática — sustentabilidade, ações Eco */
+  --color-accent-dourado: #c9a15b;      /* temática — Natal, celebrações */
+  --color-surface-areia: #e6dbd0;       /* apoio — fundo quente, áreas de respiro */
+  --color-surface-off-white: #f3eee9;   /* apoio — alternativa ao branco em áreas amplas */
+  --color-surface-branco-suave: #f7f6f4;/* textos/elementos claros sobre fundo escuro */
 
   /* ---- Semânticas de estado (uma cor por estado, não "escolhida à mão"
      a cada tela como no sistema original) ---- */
@@ -62,23 +91,48 @@
   --color-info: #2563eb;
   --color-info-bg: #eff6ff;
 
-  /* ---- Tipografia (famílias oficiais do manual da marca: Roboto como
-     principal, Lucida Sans Unicode como apoio — ambas sem serifa. Nenhuma
-     das duas é embutida aqui como @font-face; o app consumidor deve
-     carregar "Roboto" (ex.: Google Fonts ou self-hosted) para que o
-     primeiro nome da pilha realmente resolva, senão cai no fallback
-     de sistema) ---- */
-  --font-sans: "Roboto", "Lucida Sans Unicode", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
+  /* ---- Tipografia (guia §03) ----
+     Roboto é a família principal; Lucida Sans Unicode é a fonte de apoio para
+     ambientes em que Roboto não resolve (e-mail, planilha, documento
+     editável), com Arial como substituta de sistema. Ambas são embutidas via
+     src/fonts.css. A cursiva Vanilla Macchiato (§03.3) NÃO entra aqui: é de
+     uso restrito a destaque editorial curto, não tem papel em UI. */
+  --font-sans: "Roboto", "Lucida Sans Unicode", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* Escala de texto. Os quatro valores marcados "guia" são os da hierarquia
+     tipográfica de documentos A4 (§03.4); os demais são degraus de UI que o
+     manual não cobre (ele trata de peças, não de interface). */
+  --text-xs: 0.75rem;        /* 12px — guia: rótulo */
+  --text-caption: 0.8125rem; /* 13px — guia: legenda */
+  --text-sm: 0.875rem;       /* 14px */
+  --text-base: 1rem;         /* 16px — guia: corpo */
+  --text-lg: 1.125rem;       /* 18px */
+  --text-xl: 1.25rem;        /* 20px */
+  --text-2xl: 1.5rem;        /* 24px — guia: subtítulo */
+  --text-3xl: 2.5rem;        /* 40px — guia: título */
+
+  /* Entrelinhas da hierarquia do guia (corpo/entrelinha: 40/44, 24/29,
+     16/26, 13/20), expressas como razão para não travar o tamanho. */
+  --leading-title: 1.1;      /* 44/40 */
+  --leading-subtitle: 1.2;   /* 29/24 */
+  --leading-body: 1.625;     /* 26/16 */
+  --leading-caption: 1.54;   /* 20/13 */
+
+  /* Rótulo do guia: 12px Bold com +220 de tracking. */
+  --tracking-label: 0.22em;
+
+  /* Pesos autorizados pelo guia: Light, Regular, Medium, Bold e Black.
+     A edição 2022 não definia pesos e o Integra usava 650/750/800 fora de
+     escala; agora a escala é fechada pelo próprio manual. */
+  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  --font-weight-black: 900;
+  /* DEPRECIADO: 600 (SemiBold) não está entre os pesos autorizados da edição
+     2026. Mantido como alias de Medium apenas para não quebrar consumidores
+     que já usam var(--font-weight-semibold); use --font-weight-medium. */
+  --font-weight-semibold: var(--font-weight-medium);
 
   /* ---- Raios (8px era, disparado, o mais usado no sistema original) ---- */
   --radius-sm: 6px;
@@ -90,7 +144,7 @@
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.05);
   --shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.12);
-  --shadow-brand: inset 3px 0 0 var(--color-primary-500), 0 6px 18px rgba(181, 29, 34, 0.07);
+  --shadow-brand: inset 3px 0 0 var(--color-primary-500), 0 6px 18px rgba(181, 52, 55, 0.07);
 
   /* ---- Espaçamento ---- */
   --space-xs: 0.25rem;
@@ -106,6 +160,12 @@
   --header-height: 56px;
   --topbar-accent-height: 6px;
 
+  /* Grade de ícone do guia (§04.2): 24 × 24 px, traço de 2 px constante,
+     margem interna de 2 px, sempre monocromático. */
+  --icon-size: 24px;
+  --icon-stroke: 2px;
+  --icon-padding: 2px;
+
   /* ---- Breakpoints de referência (usar via CSS media query;
      documentados aqui como fonte única — nada de valores ad-hoc por tela) ---- */
   --breakpoint-sm: 640px;
@@ -119,13 +179,18 @@
  * grayscale para impressão/mídia sem cor), então este bloco é uma extensão
  * nossa. Duas regras guiaram cada valor, não achismo visual:
  *
- * 1. A cor de marca em si (--color-primary-500 = #B51D22) NUNCA muda entre
+ * 1. A cor de marca em si (--color-primary-500 = #B53437) NUNCA muda entre
  *    temas — é o mesmo vermelho institucional nos dois, e continua sendo o
  *    bg sólido do botão primário e da faixa do topo em ambos.
  * 2. Todo par texto/fundo abaixo foi conferido contra a fórmula de contraste
  *    do WCAG 2.1 (razão de luminância relativa) e mira >=4.5:1 para texto
  *    normal, >=3:1 para elementos gráficos/UI — os valores comentados são o
  *    resultado desse cálculo, não uma escolha arbitrária.
+ *
+ * A troca do vermelho de marca na edição 2026 (#B51D22 → #B53437) não exigiu
+ * recalibrar este bloco: os degraus daqui são definidos por papel e já
+ * atendiam os mínimos; os que estavam fixados à mão foram reconferidos
+ * abaixo.
  */
 :root[data-theme="dark"] {
   /* Neutros. Superfície base em cinza NEUTRO PURO (#121212), não preto puro —
@@ -145,23 +210,28 @@
      superfície escureceu pra #121212, o contraste do texto SUBIU (14,88:1 →
      15,88:1) sem o texto ter mudado — na prática, mais glare contra um fundo
      mais escuro, relatado como cansativo em telas com muito texto (grids).
-     #d8d8db reduz esse brilho e continua lido como "branco". */
+     #d8d8db reduz esse brilho e continua lido como "branco" — é também o
+     papel que o guia dá ao Branco Suave (#F7F6F4): claro sobre fundo escuro,
+     nunca branco puro. */
   --color-text: #d8d8db;             /* 13,17:1 sobre surface, 10,78:1 sobre surface-alta (AAA) */
   --color-text-muted: #a8a8ac;       /* 7,91:1 sobre surface, 6,47:1 sobre surface-alta (AA) */
   --color-text-subtle: #737376;      /* 3,96:1 — só texto grande/UI ou desabilitado, nunca leitura ativa */
 
   /* Vermelho de marca como TEXTO/destaque sobre fundo escuro: o degrau-500
-     puro daria 2,82:1 (não passa nem o mínimo de 3:1 pra UI) — por isso os
-     papéis abaixo usam degraus mais claros da MESMA rampa (400/300),
-     preservando a matiz oficial e só ajustando a luminância. */
+     puro daria 3,13:1 (passa o mínimo de 3:1 pra UI, mas não os 4,5:1 de
+     texto) — por isso os papéis abaixo usam degraus mais claros da MESMA
+     rampa (400/300), preservando a matiz oficial e só ajustando a
+     luminância. */
   --color-primary-text: var(--color-primary-400);
-  --color-primary-surface-text: var(--color-primary-300); /* 8,25:1 sobre --color-primary-50 (abaixo) */
-  /* Histórico: o degrau 400 do escuro herdava o #d47c7f do claro. Usuário
-     relatou que lia como "rosa/salmão" em vez de "vinho" nos destaques do
-     escuro (hover/aba ativa do menu, rótulos do login) — causa: saturação
-     baixa (51%) de um degrau calibrado pro fundo claro. Ajuste: mesmo matiz
-     (358°, igual à marca) e mesma luminosidade perceptual, saturação elevada
-     a 72% (igual à do 500). Só neste bloco — o claro segue com #d47c7f. */
+  --color-primary-surface-text: var(--color-primary-300); /* 8,52:1 sobre --color-primary-50 (abaixo) */
+  /* Histórico: o degrau 400 do escuro herdava o tom claro do tema claro.
+     Usuário relatou que lia como "rosa/salmão" em vez de "vinho" nos
+     destaques do escuro (hover/aba ativa do menu, rótulos do login) — causa:
+     saturação baixa demais para o fundo escuro. Ajuste: mesmo matiz (358°,
+     igual à marca) e mesma luminosidade perceptual, saturação elevada a 72%.
+     Só neste bloco — o claro segue com o degrau derivado da rampa.
+     Reconferido na edição 2026: a matiz do novo #B53437 continua 358°, então
+     este valor segue coerente com a marca. */
   --color-primary-400: #e7696e;  /* 5,93:1 sobre surface, 4,85:1 sobre surface-alta (AA) */
   --color-primary-50: #321a1c;   /* era o tom quase-branco do claro; aqui é um vinho escuro sutil (fundo de destaque, não texto) */
   --color-primary-100: #481b1d;  /* idem, para o glow de foco do Input */
