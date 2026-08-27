@@ -1,4 +1,4 @@
-# Integra Design System
+# Planejar Design System
 
 Biblioteca de componentes React que consolida a identidade visual do
 **Integra** (sistema de gestão interna da Planejar) em tokens e componentes
