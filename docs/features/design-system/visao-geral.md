@@ -2,7 +2,7 @@
 
 | Versão | Atualizado em |
 |--------|---------------|
-| 2      | 09/09/2026    |
+| 3      | 09/09/2026    |
 
 ## Em uma frase
 
@@ -14,17 +14,17 @@ fonte, qual raio ou qual sombra usar.
 ## O problema que ele resolve
 
 A decisão visual não tinha onde morar. Sem um lugar canônico, cada tela
-reimplementa a marca por conta própria — e o levantamento feito sobre o Integra
-mostra o resultado acumulado:
+reimplementa a marca por conta própria, e o custo aparece sempre nas mesmas
+formas:
 
-| O que foi encontrado | Escala |
+| Sem design system | Com design system |
 |---|---|
-| Cores em `#hex` escritas direto no código | ~1750 ocorrências |
-| Sistemas de botão coexistindo na mesma aplicação | 3 (PrimeVue, `style=` inline, Bootstrap legado) |
-| Classes `*-card` duplicadas, cada uma com CSS ligeiramente diferente | 30+ |
-| `!important` para vencer conflito de CSS | ~120 |
-| Valores de breakpoint distintos, escolhidos tela a tela | 18 |
-| Tema escuro | via extensão de terceiros (`darkreader`) + patches manuais |
+| Cor escrita em `#hex` dentro do componente | `var(--color-primary-500)` |
+| Mais de um sistema de botão convivendo na mesma aplicação | um `Button`, com variantes nomeadas |
+| Classes de card duplicadas, cada uma com CSS ligeiramente diferente | `Card`, `SectionCard`, `MetricCard` |
+| `!important` para vencer conflito de CSS | escopo por prefixo `pds-*`, sem seletor global |
+| Breakpoint escolhido tela a tela | escala única de breakpoints |
+| Tema escuro improvisado por tela | `data-theme="dark"` no `<html>` |
 
 Nenhum desses itens é errado isoladamente. Somados, são o custo de não ter uma
 camada onde a decisão fique.
@@ -49,7 +49,7 @@ Três camadas, e você pode parar em qualquer uma:
   `#767778`, paleta ampliada e tipografia (`Roboto` + `Lucida Sans Unicode`,
   embutidas) vêm do guia oficial — não de aproximação por captura de tela.
 - **Tema escuro de graça.** Um atributo no `<html>` (`data-theme="dark"`) e
-  pronto. Sem provider, sem wrapper, sem extensão de terceiros.
+  pronto. Sem provider e sem wrapper.
 - **Acessibilidade já conferida.** Todo par texto/fundo dos dois temas foi
   verificado pela fórmula do WCAG 2.1, com o valor comentado linha a linha nos
   tokens. Estado desabilitado não depende só de cor.
@@ -95,8 +95,8 @@ import '@planejar/design-system/styles.css'
 
 **3. Migração gradual de sistema existente.** A ordem de menor risco está
 documentada: tokens primeiro, depois botão, depois cards, layout por último. O
-caminho específico do Integra está em
-[`docs/features/integra/migracao-para-o-design-system.md`](../integra/migracao-para-o-design-system.md).
+plano de migração de cada sistema fica em seu próprio documento, em
+[`docs/features/`](../).
 
 ## Regras para quem for contribuir
 
@@ -116,7 +116,6 @@ caminho específico do Integra está em
 | [Tema escuro](tema-escuro.md) | paleta, contraste e regras de uso do `data-theme="dark"` |
 | [Guia de Utilização da Marca](../../../brand/Guia%20de%20Utilização%20da%20Marca.md) | manual oficial, Edição 2026 · v2.0 |
 | [`docs/adr/`](../../adr/) | decisões de arquitetura: fontes embutidas, precedência de valores de cor |
-| [Migração do Integra](../integra/migracao-para-o-design-system.md) | levantamento, dívidas de UI e ordem de adoção |
 
 ## O que pedimos do time
 
