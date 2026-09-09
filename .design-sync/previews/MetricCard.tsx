@@ -1,4 +1,4 @@
-import { MetricCard } from '@planejar/integra-design-system'
+import { MetricCard } from '@planejar/design-system'
 
 export function TendenciaAlta() {
   return <MetricCard label="Tarefas concluídas" value={128} trend={{ direction: 'up', label: '+12% no mês' }} />

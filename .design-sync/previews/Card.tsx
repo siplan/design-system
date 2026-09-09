@@ -1,4 +1,4 @@
-import { Card } from '@planejar/integra-design-system'
+import { Card } from '@planejar/design-system'
 
 export function Flat() {
   return (

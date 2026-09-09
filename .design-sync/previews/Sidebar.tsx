@@ -1,5 +1,5 @@
-import { Sidebar } from '@planejar/integra-design-system'
-import type { NavItem } from '@planejar/integra-design-system'
+import { Sidebar } from '@planejar/design-system'
+import type { NavItem } from '@planejar/design-system'
 
 const items: NavItem[] = [
   { key: 'inicio', label: 'Início' },

@@ -7,6 +7,7 @@ dist
 ds-bundle/
 .design-sync/.cache/
 .design-sync/learnings/
+.design-sync/NOTES.md
 .design-sync/node_modules
 
 

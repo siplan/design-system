@@ -1,4 +1,4 @@
-import { Table, Badge } from '@planejar/integra-design-system'
+import { Table, Badge } from '@planejar/design-system'
 
 interface Pessoa {
   id: number

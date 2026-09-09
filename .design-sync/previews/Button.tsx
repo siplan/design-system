@@ -1,4 +1,4 @@
-import { Button } from '@planejar/integra-design-system'
+import { Button } from '@planejar/design-system'
 
 export function Variantes() {
   return (

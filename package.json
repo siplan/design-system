@@ -1,7 +1,7 @@
 {
-  "name": "@planejar/integra-design-system",
+  "name": "@planejar/design-system",
   "version": "0.1.0",
-  "description": "Design system extraído e consolidado do Integra (Planejar) — tokens e componentes React reutilizáveis para novas ferramentas.",
+  "description": "Planejar Design System — tokens e componentes React que materializam o Guia de Utilização da Marca da Planejar.",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

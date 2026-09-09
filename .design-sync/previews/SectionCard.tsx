@@ -1,4 +1,4 @@
-import { SectionCard, Button, Badge } from '@planejar/integra-design-system'
+import { SectionCard, Button, Badge } from '@planejar/design-system'
 
 export function ComAcoes() {
   return (

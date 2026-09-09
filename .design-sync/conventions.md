@@ -1,9 +1,9 @@
-## Integra Design System — como usar
+## Planejar Design System — como usar
 
-Biblioteca de componentes React (`@planejar/integra-design-system`) com identidade visual
+Biblioteca de componentes React (`@planejar/design-system`) com identidade visual
 própria (vermelho de marca `#B53437`, Guia de Utilização da Marca — Edição 2026 · v2.0).
 Sem provider/wrapper de tema — os componentes
-importam seu próprio CSS e funcionam standalone; basta `import '@planejar/integra-design-system/styles.css'`
+importam seu próprio CSS e funcionam standalone; basta `import '@planejar/design-system/styles.css'`
 uma vez na raiz do app.
 
 ### Estilização — via props, não classes utilitárias
@@ -16,7 +16,7 @@ componente já vem estilizado e se customiza por props de variante:
 - `Badge`: `tone` (`neutral` | `danger` | `warning` | `success` | `info`)
 - `Table`: `getRowTone` por linha (`warning` | `success` | `danger`)
 
-Nunca invente classes CSS novas (`ids-*` é o namespace interno dos componentes, não uma API
+Nunca invente classes CSS novas (`pds-*` é o namespace interno dos componentes, não uma API
 pública). Para layout próprio (grids, espaçamento entre componentes), use os tokens do
 design system diretamente via `var(--*)` — nunca hardcode cor/espaçamento/raio:
 
@@ -59,7 +59,7 @@ Telas completas de aplicação usam `AppShell` (topbar de destaque + `Sidebar` c
 <AppShell
   navItems={[{ key: 'tarefas', label: 'Tarefas' }]}
   activeKey="tarefas"
-  headerLeft={<strong>Integra</strong>}
+  headerLeft={<strong>Planejar</strong>}
   headerRight={<Button size="sm" variant="ghost">Sair</Button>}
 >
   <MetricCard label="Tarefas em aberto" value={42} />

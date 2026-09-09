@@ -1,5 +1,5 @@
-import { AppShell, SectionCard, MetricCard, Button, Badge } from '@planejar/integra-design-system'
-import type { NavItem } from '@planejar/integra-design-system'
+import { AppShell, SectionCard, MetricCard, Button, Badge } from '@planejar/design-system'
+import type { NavItem } from '@planejar/design-system'
 
 const navItems: NavItem[] = [
   { key: 'inicio', label: 'Início' },
@@ -13,7 +13,7 @@ export function Padrao() {
       <AppShell
         navItems={navItems}
         activeKey="tarefas"
-        headerLeft={<strong>Integra</strong>}
+        headerLeft={<strong>Planejar</strong>}
         headerRight={
           <Button size="sm" variant="ghost">
             Sair

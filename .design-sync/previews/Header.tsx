@@ -1,9 +1,9 @@
-import { Header, Button, Badge } from '@planejar/integra-design-system'
+import { Header, Button, Badge } from '@planejar/design-system'
 
 export function Padrao() {
   return (
     <Header
-      left={<strong>Integra</strong>}
+      left={<strong>Planejar</strong>}
       right={
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <Badge tone="info">Ana Souza</Badge>

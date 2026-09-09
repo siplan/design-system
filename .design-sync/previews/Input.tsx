@@ -1,4 +1,4 @@
-import { Card, Input } from '@planejar/integra-design-system'
+import { Card, Input } from '@planejar/design-system'
 
 export function Padrao() {
   return (

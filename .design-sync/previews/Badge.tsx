@@ -1,4 +1,4 @@
-import { Badge } from '@planejar/integra-design-system'
+import { Badge } from '@planejar/design-system'
 
 export function Tons() {
   return (
