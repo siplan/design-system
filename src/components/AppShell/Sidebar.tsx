@@ -9,8 +9,8 @@ export interface NavItem {
 }
 
 export interface SidebarProps {
-  /** Árvore de navegação recebida por prop — no Integra original o menu
-   * inteiro do sistema estava hardcoded dentro do componente de layout. */
+  /** Árvore de navegação, sempre recebida por prop: o menu é dado da
+   * aplicação, não conteúdo do componente de layout. */
   items: NavItem[]
   activeKey?: string
   onNavigate?: (item: NavItem) => void
@@ -18,12 +18,12 @@ export interface SidebarProps {
 
 function NavList({ items, activeKey, onNavigate, depth = 0 }: SidebarProps & { depth?: number }) {
   return (
-    <ul className={depth === 0 ? 'ids-nav' : 'ids-nav__children'}>
+    <ul className={depth === 0 ? 'pds-nav' : 'pds-nav__children'}>
       {items.map((item) => (
         <li key={item.key}>
           <button
             type="button"
-            className={`ids-nav__item${item.key === activeKey ? ' ids-nav__item--active' : ''}`}
+            className={`pds-nav__item${item.key === activeKey ? ' pds-nav__item--active' : ''}`}
             onClick={() => onNavigate?.(item)}
           >
             {item.icon}
@@ -44,7 +44,7 @@ function NavList({ items, activeKey, onNavigate, depth = 0 }: SidebarProps & { d
  */
 export function Sidebar({ items, activeKey, onNavigate }: SidebarProps) {
   return (
-    <nav className="ids-shell__sidebar" aria-label="Navegação principal">
+    <nav className="pds-shell__sidebar" aria-label="Navegação principal">
       <NavList items={items} activeKey={activeKey} onNavigate={onNavigate} />
     </nav>
   )

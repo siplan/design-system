@@ -122,8 +122,8 @@
   --tracking-label: 0.22em;
 
   /* Pesos autorizados pelo guia: Light, Regular, Medium, Bold e Black.
-     A edição 2022 não definia pesos e o Integra usava 650/750/800 fora de
-     escala; agora a escala é fechada pelo próprio manual. */
+     A edição 2022 não definia pesos; a escala agora é fechada pelo próprio
+     manual — nenhum peso fora desta lista. */
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;

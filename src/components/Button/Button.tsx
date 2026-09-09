@@ -6,9 +6,8 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger' | 'gh
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Estilo visual do botão. Único sistema de botão do design system —
-   * substitui os três padrões conflitantes do Integra original
-   * (PrimeVue Button, `<button>` com estilo inline, `btn btn-*` do Bootstrap legado). */
+  /** Estilo visual do botão. Este é o único sistema de botão do design
+   * system: toda ação clicável passa por aqui, em uma destas variantes. */
   variant?: ButtonVariant
   size?: ButtonSize
 }
@@ -23,7 +22,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', className, ...props }, ref) => {
-    const classes = ['ids-button', `ids-button--${variant}`, `ids-button--${size}`, className]
+    const classes = ['pds-button', `pds-button--${variant}`, `pds-button--${size}`, className]
       .filter(Boolean)
       .join(' ')
 

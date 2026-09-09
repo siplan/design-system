@@ -1,17 +1,17 @@
-.ids-field {
+.pds-field {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
 }
 
-.ids-field__label {
+.pds-field__label {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }
 
-.ids-input {
+.pds-input {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   color: var(--color-text);
@@ -23,7 +23,7 @@
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.ids-input:focus {
+.pds-input:focus {
   outline: none;
   border-color: var(--color-primary-400);
   box-shadow: 0 0 0 3px var(--color-primary-100);
@@ -37,10 +37,10 @@
    No escuro --disabled-surface-field aponta para a mesma superfície do campo
    ativo (o degrau de 1,10:1 não é perceptível e custa a forma do controle); no
    claro ele afunda um degrau, como antes. `opacity: 1` é explícito porque o
-   consumidor pode aplicar a classe `.ids-input` num <select> (o componente
+   consumidor pode aplicar a classe `.pds-input` num <select> (o componente
    React só renderiza <input>, mas a classe é pública) e o UA aplica 0,7 em
    <select>:disabled, o que lavaria a textura junto com o texto. */
-.ids-input:disabled {
+.pds-input:disabled {
   background-color: var(--disabled-surface-field);
   background-image: var(--disabled-hachura-leve);
   /* Explícito pelo mesmo motivo do Button: reset ou classe de "loading" do
@@ -64,7 +64,7 @@
    A borda é `solid` fixo, não --disabled-border-style: no claro o tracejado é
    o sinal de DESABILITADO, e usá-lo aqui também apagaria a distinção que esta
    regra existe para criar. */
-.ids-input[readonly] {
+.pds-input[readonly] {
   background-color: var(--disabled-surface-field);
   background-image: var(--disabled-hachura-leve);
   background-repeat: repeat;
@@ -77,31 +77,31 @@
 
 /* Campo readonly RECEBE FOCO (é tabulável, e o usuário seleciona o valor para
    copiar) — ao contrário do desabilitado, que não. Sem esta regra o anel de
-   foco ficava pela metade: a regra `.ids-input[readonly]` acima tem a mesma
-   especificidade de `.ids-input:focus` (0,2,0) e vem depois no arquivo, então
+   foco ficava pela metade: a regra `.pds-input[readonly]` acima tem a mesma
+   especificidade de `.pds-input:focus` (0,2,0) e vem depois no arquivo, então
    ganhava o desempate e sobrescrevia a border-color de foco — restava só o
    box-shadow. */
-.ids-input[readonly]:focus {
+.pds-input[readonly]:focus {
   border-color: var(--color-primary-400);
 }
 
-.ids-input--error {
+.pds-input--error {
   border-color: var(--color-danger);
 }
 
 /* Estado semântico vence estado de edição: campo com erro mantém a borda de
-   perigo mesmo desabilitado, readonly ou em foco. Sem isto, `.ids-input--error`
+   perigo mesmo desabilitado, readonly ou em foco. Sem isto, `.pds-input--error`
    (0,1,0) perde de `[readonly]`/`:disabled`/`:focus` (0,2,0) por
    ESPECIFICIDADE — não por ordem; movê-la para o fim do arquivo não
    resolveria. */
-.ids-input--error[readonly],
-.ids-input--error[readonly]:focus,
-.ids-input--error:disabled,
-.ids-input--error:focus {
+.pds-input--error[readonly],
+.pds-input--error[readonly]:focus,
+.pds-input--error:disabled,
+.pds-input--error:focus {
   border-color: var(--color-danger);
 }
 
-.ids-field__error {
+.pds-field__error {
   font-family: var(--font-sans);
   font-size: var(--text-xs);
   color: var(--color-danger);

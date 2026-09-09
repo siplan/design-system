@@ -10,8 +10,8 @@ export interface SectionCardProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * Card com cabeçalho — título + slot de ações — para seções de tela
- * (listas, gráficos, resumos). Substitui os componentes de card com
- * cabeçalho reimplementados por tela no Integra original.
+ * (listas, gráficos, resumos). É o bloco padrão para seção com título —
+ * não reimplemente cabeçalho de card por tela.
  *
  * @example
  * <SectionCard title="Tarefas do dia" actions={<Button size="sm">Ver todas</Button>}>
@@ -21,9 +21,9 @@ export interface SectionCardProps extends HTMLAttributes<HTMLDivElement> {
 export function SectionCard({ title, actions, children, className, ...props }: SectionCardProps) {
   return (
     <Card className={className} {...props}>
-      <div className="ids-card__header">
-        <h3 className="ids-card__title">{title}</h3>
-        {actions && <div className="ids-card__actions">{actions}</div>}
+      <div className="pds-card__header">
+        <h3 className="pds-card__title">{title}</h3>
+        {actions && <div className="pds-card__actions">{actions}</div>}
       </div>
       {children}
     </Card>

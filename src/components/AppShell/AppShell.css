@@ -1,4 +1,4 @@
-.ids-shell {
+.pds-shell {
   display: grid;
   grid-template-columns: var(--sidebar-width-expanded) 1fr;
   grid-template-rows: var(--topbar-accent-height) var(--header-height) 1fr;
@@ -12,15 +12,14 @@
   transition: grid-template-columns 0.2s ease;
 }
 
-.ids-shell--collapsed {
+.pds-shell--collapsed {
   grid-template-columns: var(--sidebar-width-collapsed) 1fr;
 }
 
-/* Breakpoint único e real (via CSS, não recalculado em JS a cada resize)
-   — o Integra original decidia "é mobile" com um `windowWidth < 768` no
-   JS do layout em vez de deixar o CSS resolver isso. */
+/* Breakpoint único de referência, resolvido em CSS — nunca em JS, e nunca
+   um valor novo escolhido por tela. Ver `--breakpoint-*` em tokens.css. */
 @media (max-width: 768px) {
-  .ids-shell {
+  .pds-shell {
     grid-template-columns: 1fr;
     grid-template-areas:
       'topbar'
@@ -28,7 +27,7 @@
       'main';
   }
 
-  .ids-shell__sidebar {
+  .pds-shell__sidebar {
     position: fixed;
     inset: var(--topbar-accent-height) 0 0 auto;
     z-index: 40;
@@ -36,17 +35,17 @@
     transition: transform 0.2s ease;
   }
 
-  .ids-shell--sidebar-open .ids-shell__sidebar {
+  .pds-shell--sidebar-open .pds-shell__sidebar {
     transform: translateX(0);
   }
 }
 
-.ids-shell__topbar-accent {
+.pds-shell__topbar-accent {
   grid-area: topbar;
   background-color: var(--color-primary-500);
 }
 
-.ids-shell__sidebar {
+.pds-shell__sidebar {
   grid-area: sidebar;
   background-color: var(--color-surface);
   color: var(--color-text);
@@ -54,7 +53,7 @@
   overflow-y: auto;
 }
 
-.ids-shell__header {
+.pds-shell__header {
   grid-area: header;
   background-color: var(--color-surface);
   color: var(--color-text);
@@ -65,7 +64,7 @@
   padding: 0 var(--space-xl);
 }
 
-.ids-shell__main {
+.pds-shell__main {
   grid-area: main;
   color: var(--color-text);
   padding: var(--space-xl);
@@ -73,7 +72,7 @@
 }
 
 /* ---- Sidebar / navegação ---- */
-.ids-nav {
+.pds-nav {
   list-style: none;
   margin: 0;
   padding: var(--space-md);
@@ -82,7 +81,7 @@
   gap: var(--space-xs);
 }
 
-.ids-nav__item {
+.pds-nav__item {
   display: flex;
   align-items: center;
   gap: var(--space-md);
@@ -100,18 +99,18 @@
   text-align: left;
 }
 
-.ids-nav__item:hover {
+.pds-nav__item:hover {
   background-color: var(--color-surface-muted);
   color: var(--color-text);
 }
 
-.ids-nav__item--active {
+.pds-nav__item--active {
   background-color: var(--color-primary-50);
   color: var(--color-primary-surface-text);
   box-shadow: var(--shadow-brand);
 }
 
-.ids-nav__children {
+.pds-nav__children {
   list-style: none;
   margin: 0;
   padding-left: var(--space-xl);

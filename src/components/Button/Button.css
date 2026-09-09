@@ -1,4 +1,4 @@
-.ids-button {
+.pds-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@
    variante (primary/danger perdem o preenchimento, outline/ghost ganham um).
    Manter a cor da variante e sinalizar só por textura confundiria "desabilitado"
    com "botão de ação primária". */
-.ids-button:disabled {
+.pds-button:disabled {
   cursor: not-allowed;
   opacity: 1;
   background-color: var(--color-surface-muted);
@@ -46,52 +46,52 @@
   box-shadow: none;
 }
 
-.ids-button:focus-visible {
+.pds-button:focus-visible {
   outline: 2px solid var(--color-primary-400);
   outline-offset: 2px;
 }
 
 /* Tamanhos */
-.ids-button--sm {
+.pds-button--sm {
   height: 2rem;
   padding: 0 var(--space-md);
   font-size: var(--text-sm);
 }
-.ids-button--md {
+.pds-button--md {
   height: 2.5rem;
   padding: 0 var(--space-lg);
   font-size: var(--text-sm);
 }
-.ids-button--lg {
+.pds-button--lg {
   height: 3rem;
   padding: 0 var(--space-xl);
   font-size: var(--text-base);
 }
 
 /* Variantes */
-.ids-button--primary {
+.pds-button--primary {
   background-color: var(--color-primary-500);
   color: #fff;
 }
-.ids-button--primary:hover:not(:disabled) {
+.pds-button--primary:hover:not(:disabled) {
   background-color: var(--color-primary-600);
 }
 
-.ids-button--secondary {
+.pds-button--secondary {
   background-color: var(--color-surface-muted);
   color: var(--color-text);
   border-color: var(--color-border);
 }
-.ids-button--secondary:hover:not(:disabled) {
+.pds-button--secondary:hover:not(:disabled) {
   background-color: var(--color-surface-alta);
 }
 
-.ids-button--outline {
+.pds-button--outline {
   background-color: transparent;
   color: var(--color-primary-text);
   border-color: var(--color-primary-text);
 }
-.ids-button--outline:hover:not(:disabled) {
+.pds-button--outline:hover:not(:disabled) {
   background-color: var(--color-primary-50);
 }
 
@@ -100,18 +100,18 @@
    em cima daria 1,9:1 — ilegível. O hover fica na mesma família semântica
    (antes caía em --color-primary-700, o vinho da marca: escurecia, mas trocava
    a cor de "perigo" pela cor de "marca" no meio da interação). */
-.ids-button--danger {
+.pds-button--danger {
   background-color: var(--color-danger-solid);
   color: #fff;
 }
-.ids-button--danger:hover:not(:disabled) {
+.pds-button--danger:hover:not(:disabled) {
   background-color: var(--color-danger-solid-hover);
 }
 
-.ids-button--ghost {
+.pds-button--ghost {
   background-color: transparent;
   color: var(--color-text);
 }
-.ids-button--ghost:hover:not(:disabled) {
+.pds-button--ghost:hover:not(:disabled) {
   background-color: var(--color-surface-muted);
 }

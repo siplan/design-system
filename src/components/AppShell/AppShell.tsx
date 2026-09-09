@@ -17,10 +17,10 @@ export interface AppShellProps {
 
 /**
  * Layout principal (barra de destaque + sidebar + header + conteúdo).
- * Mantém a identidade visual do Integra original (barra vermelha no topo,
- * sidebar colapsável, destaque de item ativo), mas resolve o colapso e o
- * comportamento mobile via CSS (grid + media query) em vez de recalcular
- * larguras/breakpoint em JavaScript a cada resize.
+ * Barra vermelha no topo, sidebar colapsável e destaque de item ativo. O
+ * colapso e o comportamento mobile são resolvidos em CSS (grid + media
+ * query) — sem recalcular larguras ou breakpoint em JavaScript a cada
+ * resize.
  *
  * @example
  * <AppShell navItems={navItems} activeKey="tarefas" onNavigate={handleNav}>
@@ -28,14 +28,14 @@ export interface AppShellProps {
  * </AppShell>
  */
 export function AppShell({ navItems, activeKey, onNavigate, collapsed, headerLeft, headerRight, children }: AppShellProps) {
-  const classes = ['ids-shell', collapsed && 'ids-shell--collapsed'].filter(Boolean).join(' ')
+  const classes = ['pds-shell', collapsed && 'pds-shell--collapsed'].filter(Boolean).join(' ')
 
   return (
     <div className={classes}>
-      <div className="ids-shell__topbar-accent" />
+      <div className="pds-shell__topbar-accent" />
       <Sidebar items={navItems} activeKey={activeKey} onNavigate={onNavigate} />
       <Header left={headerLeft} right={headerRight} />
-      <main className="ids-shell__main">{children}</main>
+      <main className="pds-shell__main">{children}</main>
     </div>
   )
 }

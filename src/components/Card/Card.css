@@ -1,4 +1,4 @@
-.ids-card {
+.pds-card {
   background-color: var(--color-surface);
   color: var(--color-text);
   border: 1px solid var(--color-border);
@@ -7,15 +7,15 @@
   padding: var(--space-lg);
 }
 
-.ids-card--elevated {
+.pds-card--elevated {
   box-shadow: var(--shadow-md);
 }
 
-.ids-card--accent {
+.pds-card--accent {
   box-shadow: var(--shadow-brand);
 }
 
-.ids-card__header {
+.pds-card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +23,7 @@
   margin-bottom: var(--space-lg);
 }
 
-.ids-card__title {
+.pds-card__title {
   font-family: var(--font-sans);
   font-size: var(--text-base);
   font-weight: var(--font-weight-bold);
@@ -31,20 +31,20 @@
   margin: 0;
 }
 
-.ids-card__actions {
+.pds-card__actions {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
 }
 
-.ids-metric-card__label {
+.pds-metric-card__label {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   margin: 0 0 var(--space-sm);
 }
 
-.ids-metric-card__value {
+.pds-metric-card__value {
   font-family: var(--font-sans);
   font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
@@ -52,7 +52,7 @@
   margin: 0;
 }
 
-.ids-metric-card__trend {
+.pds-metric-card__trend {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -61,10 +61,10 @@
   margin-top: var(--space-sm);
 }
 
-.ids-metric-card__trend--up {
+.pds-metric-card__trend--up {
   color: var(--color-success);
 }
 
-.ids-metric-card__trend--down {
+.pds-metric-card__trend--down {
   color: var(--color-danger);
 }

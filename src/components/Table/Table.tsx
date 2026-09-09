@@ -20,9 +20,9 @@ export interface TableProps<T> {
 }
 
 /**
- * Tabela padrão do design system. Sem `!important` e sem depender de uma
- * lib de grid de terceiros como no Integra original (que misturava SVAR
- * Grid e PrimeVue DataTable com overrides distintos).
+ * Tabela padrão do design system. Sem `!important` e sem dependência de
+ * lib de grid de terceiros — o realce de linha é semântico, via
+ * `getRowTone`, não uma cor escolhida na tela.
  *
  * @example
  * <Table
@@ -34,8 +34,8 @@ export interface TableProps<T> {
  */
 export function Table<T>({ columns, data, getRowKey, getRowTone, emptyLabel = 'Nenhum registro encontrado.' }: TableProps<T>) {
   return (
-    <div className="ids-table-container">
-      <table className="ids-table">
+    <div className="pds-table-container">
+      <table className="pds-table">
         <thead>
           <tr>
             {columns.map((column) => (
@@ -46,14 +46,14 @@ export function Table<T>({ columns, data, getRowKey, getRowTone, emptyLabel = 'N
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td className="ids-table__empty" colSpan={columns.length}>
+              <td className="pds-table__empty" colSpan={columns.length}>
                 {emptyLabel}
               </td>
             </tr>
           ) : (
             data.map((row, index) => {
               const tone = getRowTone?.(row)
-              const className = tone ? `ids-table__row--${tone}` : undefined
+              const className = tone ? `pds-table__row--${tone}` : undefined
               return (
                 <tr key={getRowKey(row, index)} className={className}>
                   {columns.map((column) => (
