@@ -2,11 +2,11 @@
 
 | Versão | Atualizado em |
 |--------|---------------|
-| 4      | 25/08/2026    |
+| 5      | 09/09/2026    |
 
-Guia de cor, contraste e uso do tema escuro do `@planejar/integra-design-system`.
+Guia de cor, contraste e uso do tema escuro do `@planejar/design-system`.
 Ativado por `data-theme="dark"` no elemento raiz — os tokens de `src/tokens.css`
-se sobrescrevem e todo componente `ids-*` acompanha, sem provider React nem
+se sobrescrevem e todo componente `pds-*` acompanha, sem provider React nem
 wrapper de tema.
 
 Este documento é a contraparte, no pacote de origem, do guia mantido no SIPLAN-v2
@@ -290,15 +290,15 @@ Duas consequências que valem regra, porque readonly (diferente de disabled)
   especificidade da de `:focus` e vem depois no arquivo, então sem um
   `[readonly]:focus` explícito o anel de foco fica pela metade (só o
   `box-shadow`).
-- Estado semântico vence estado de edição: `.ids-input--error` mantém a borda de
+- Estado semântico vence estado de edição: `.pds-input--error` mantém a borda de
   perigo mesmo desabilitado, readonly ou em foco. Isso é questão de
-  **especificidade**, não de ordem — `.ids-input--error` (0,1,0) perde de
+  **especificidade**, não de ordem — `.pds-input--error` (0,1,0) perde de
   `[readonly]`/`:disabled`/`:focus` (0,2,0) onde estiver no arquivo.
 
 ### 8.4 Onde está aplicado
 
-`Button` (`.ids-button:disabled`, densidade forte) e `Input`
-(`.ids-input:disabled` e `.ids-input[readonly]`, densidade leve). Os componentes
+`Button` (`.pds-button:disabled`, densidade forte) e `Input`
+(`.pds-input:disabled` e `.pds-input[readonly]`, densidade leve). Os componentes
 não sabem em que tema estão: leem os tokens `--disabled-hachura`,
 `--disabled-hachura-leve`, `--disabled-surface-field`, `--disabled-border-color`
 e `--disabled-border-style`, que trocam de valor no bloco `[data-theme="dark"]`.
@@ -360,7 +360,7 @@ tenha posto no controle.
 | O quão escuro é o tema escuro | `--color-surface` + recalcular os degraus dependentes (§2) | Componentes |
 | A cor de um estado num componente | O token semântico correspondente | `#hex` dentro do CSS do componente |
 
-Nenhum componente `ids-*` contém `#hex` de cor, com uma exceção deliberada:
+Nenhum componente `pds-*` contém `#hex` de cor, com uma exceção deliberada:
 `color: #fff` sobre os preenchimentos sólidos (`--color-primary-500`,
 `--color-danger-solid`), que são escuros nos dois temas e por isso pedem texto
 branco fixo — não um token que inverteria com o tema.
