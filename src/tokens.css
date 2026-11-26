@@ -167,6 +167,24 @@
   --disabled-border-color: var(--color-border);
   --disabled-border-style: dashed;
 
+  /* ---- Sinal de espera transitória ("aguardando") ----
+     Controle desabilitado SÓ enquanto algo termina (requisição em curso,
+     intervalo anti-clique-por-reflexo) não é "desabilitado": a hachura diria
+     "você não pode mexer aqui" quando a mensagem é "espere, já volta". O
+     sinal próprio é MOVIMENTO — brilho que varre o controle (espera de
+     duração desconhecida) ou preenchimento que avança até liberar (duração
+     conhecida). Ver docs/adr/0003 e tema-escuro.md §8.6.
+
+     Mesma divisão da hachura: as imagens são redefinição do escuro; no claro
+     valem `none` (o controle aguardando perde o tracejado de desabilitado e
+     fica com borda sólida e texto secundário, sem textura). Com
+     prefers-reduced-motion as imagens voltam a `none` e a animação pausa —
+     bloco no fim deste arquivo. */
+  --aguardando-brilho: none;
+  --aguardando-brilho-leve: none;
+  --aguardando-progresso: none;
+  --aguardando-animacao: running;
+
   /* ---- Sombras (consolidando ~15 variações do original em 3 níveis) ---- */
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.05);
@@ -335,6 +353,41 @@
   --disabled-surface-field: var(--color-surface);
   --disabled-border-color: var(--color-border-muted);
   --disabled-border-style: solid;
+
+  /* ---- Espera transitória: brilho/preenchimento, NUNCA hachura ----
+     Brilho: faixa translúcida que varre o controle (2 densidades, como a
+     hachura — campo tem valor por trás). Progresso: bloco uniforme que cresce
+     da esquerda até completar junto com a liberação do botão. Ver §8.6. */
+  --aguardando-brilho: linear-gradient(90deg,
+      transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+  --aguardando-brilho-leve: linear-gradient(90deg,
+      transparent 0%, rgba(255, 255, 255, 0.07) 50%, transparent 100%);
+  --aguardando-progresso: linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12));
+}
+
+/* Movimento reduzido: sem brilho nem preenchimento, animação pausada. Fica o
+   texto secundário e o cursor de progresso. O seletor do escuro repete a
+   especificidade do bloco [data-theme="dark"] para vencê-lo por ordem. */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  :root[data-theme="dark"] {
+    --aguardando-brilho: none;
+    --aguardando-brilho-leve: none;
+    --aguardando-progresso: none;
+    --aguardando-animacao: paused;
+  }
+}
+
+/* Keyframes da espera ficam aqui, e não no CSS de cada componente, porque
+   Button e Input usam os mesmos e tokens.css é o único arquivo que todo
+   consumidor carrega. */
+@keyframes pds-aguardando-brilho {
+  from { background-position: -70% 0; }
+  to   { background-position: 170% 0; }
+}
+@keyframes pds-aguardando-progresso {
+  from { background-size: 0% 100%; }
+  to   { background-size: 100% 100%; }
 }
 
 /**

@@ -46,6 +46,49 @@
   box-shadow: none;
 }
 
+/* Aguardando NÃO é desabilitado (ADR 0003, tema-escuro.md §8.6). O botão
+   continua `disabled` durante a espera — só o sinal muda: sem hachura e sem
+   tracejado, borda sólida normal, rótulo em --color-text-muted (não o
+   terciário) e cursor de progresso. O fundo neutro do desabilitado é mantido
+   de propósito: a cor da variante de volta faria o botão parecer clicável.
+
+   Duas formas, conforme se sabe ou não quanto falta:
+   - Duração desconhecida (requisição): `aria-busy="true"` no botão (a prop
+     `loading` do Button faz isso) ou num container ancestral — brilho que
+     varre o botão em loop.
+   - Duração conhecida (intervalo fixo, ex.: confirmação que libera o "Sim"
+     depois de alguns segundos): classe `pds-button--aguardando` + a duração em
+     `--aguardando-duracao` no style do botão — preenchimento que completa
+     exatamente quando o botão libera.
+
+   Especificidade (0,3,0) contra (0,2,0) do `:disabled` acima: vence em
+   qualquer ordem. `animation-play-state` vem DEPOIS do shorthand, que o
+   resetaria. */
+.pds-button[aria-busy="true"]:disabled,
+[aria-busy="true"] .pds-button:disabled {
+  background-image: var(--aguardando-brilho);
+  background-repeat: no-repeat;
+  background-size: 40% 100%;
+  border-style: solid;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: progress;
+  animation: pds-aguardando-brilho 1.4s ease-in-out infinite;
+  animation-play-state: var(--aguardando-animacao);
+}
+.pds-button.pds-button--aguardando:disabled {
+  background-image: var(--aguardando-progresso);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  border-style: solid;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: progress;
+  animation: pds-aguardando-progresso var(--aguardando-duracao, 3.5s) linear forwards;
+  animation-play-state: var(--aguardando-animacao);
+}
+
 .pds-button:focus-visible {
   outline: 2px solid var(--color-primary-400);
   outline-offset: 2px;

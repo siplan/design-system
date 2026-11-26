@@ -53,6 +53,26 @@
   opacity: 1;
 }
 
+/* Aguardando NÃO é desabilitado (ADR 0003, tema-escuro.md §8.6): campo que o
+   consumidor desabilita só durante uma requisição, dentro de um container com
+   `aria-busy="true"`. Sem hachura e sem tracejado; o fundo volta à superfície
+   do campo ATIVO (não afunda — nada está bloqueado), borda sólida normal,
+   valor em --color-text-muted (é o que o usuário acabou de digitar, precisa
+   continuar legível) e brilho leve varrendo o campo. Especificidade (0,3,0)
+   contra (0,2,0) do `:disabled` acima. */
+[aria-busy="true"] .pds-input:disabled {
+  background-color: var(--color-surface);
+  background-image: var(--aguardando-brilho-leve);
+  background-repeat: no-repeat;
+  background-size: 40% 100%;
+  border-style: solid;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: progress;
+  animation: pds-aguardando-brilho 1.4s ease-in-out infinite;
+  animation-play-state: var(--aguardando-animacao);
+}
+
 /* Readonly NÃO é disabled. Campo readonly costuma exibir valor calculado que o
    usuário precisa LER (total, saldo, código gerado) — apagá-lo para o
    terciário (3,96:1 no escuro) trabalha contra a função do campo. Mesma
@@ -93,10 +113,12 @@
    perigo mesmo desabilitado, readonly ou em foco. Sem isto, `.pds-input--error`
    (0,1,0) perde de `[readonly]`/`:disabled`/`:focus` (0,2,0) por
    ESPECIFICIDADE — não por ordem; movê-la para o fim do arquivo não
-   resolveria. */
+   resolveria. O seletor com [aria-busy] acompanha a regra de espera acima,
+   que tem (0,3,0). */
 .pds-input--error[readonly],
 .pds-input--error[readonly]:focus,
 .pds-input--error:disabled,
+[aria-busy="true"] .pds-input--error:disabled,
 .pds-input--error:focus {
   border-color: var(--color-danger);
 }
