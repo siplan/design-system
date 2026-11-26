@@ -60,7 +60,9 @@ extensão de terceiros. Guia de cor e contraste em
 [`docs/features/design-system/tema-escuro.md`](docs/features/design-system/tema-escuro.md).
 
 **Acessibilidade.** Contraste WCAG 2.1 verificado par a par nos dois temas.
-Estado desabilitado não depende só de cor (hachura no tema escuro).
+Estado desabilitado não depende só de cor (hachura no tema escuro), e espera
+transitória não se confunde com desabilitado (movimento, marcado por `aria-busy` —
+[ADR 0003](docs/adr/0003-espera-transitoria-nao-usa-sinal-de-desabilitado.md)).
 
 **Escopo de CSS.** Toda classe é prefixada `pds-*`. Nenhum `!important`, nenhum
 seletor global — conviver com CSS legado é requisito, não acidente.
@@ -80,7 +82,7 @@ seletor global — conviver com CSS legado é requisito, não acidente.
 
 | Componente | Papel |
 |---|---|
-| `Button` | variantes `primary` / `secondary` / `outline` / `danger` / `ghost`; tamanhos `sm` / `md` / `lg` |
+| `Button` | variantes `primary` / `secondary` / `outline` / `danger` / `ghost`; tamanhos `sm` / `md` / `lg`; `loading` para espera de requisição |
 | `Card`, `SectionCard`, `MetricCard` | blocos de conteúdo — genérico, seção com título, indicador numérico |
 | `Badge` | pills de status semânticas |
 | `Table` | tabela com realce de linha semântico (pendente / aprovado / erro) |

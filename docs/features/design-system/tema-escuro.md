@@ -2,7 +2,7 @@
 
 | Versão | Atualizado em |
 |--------|---------------|
-| 5      | 09/09/2026    |
+| 6      | 30/09/2026    |
 
 Guia de cor, contraste e uso do tema escuro do `@planejar/design-system`.
 Ativado por `data-theme="dark"` no elemento raiz — os tokens de `src/tokens.css`
@@ -255,8 +255,8 @@ de cor uniforme.
   fundo de todas as variantes: o botão desabilitado deliberadamente deixa de ter
   cor de variante, para não ser confundido com botão de ação primária.
 - **Borda perde realce** (`--color-border-muted`) em vez de trocar de estilo.
-  Tracejado não é sinal de desabilitado no escuro; ele fica reservado a estados
-  transitórios (o "aguardando" do SIPLAN-v2).
+  Tracejado não é sinal de desabilitado no escuro — e também não sinaliza
+  espera transitória, que tem canal próprio (movimento, §8.6).
 - **Texto cai para o nível terciário** (`--color-text-subtle`, §3), nunca para o
   principal com opacidade reduzida.
 - `cursor: not-allowed` (ou `default`, onde "not-allowed" não faz sentido).
@@ -314,6 +314,9 @@ tiver ou para o consumidor:
   de árvore) enche a tela de ruído. Por isso o consumidor SIPLAN-v2 restringe a
   regra a `button`/`a`/`.ui-button` e deixa o `.ui-state-disabled` genérico do
   jqGrid de fora.
+- **Espera transitória não recebe hachura** — `Button` com `loading` ou dentro
+  de `[aria-busy="true"]`, `.pds-button--aguardando` e `.pds-input:disabled`
+  dentro de `[aria-busy="true"]` têm sinal próprio (§8.6).
 
 ### 8.5 Por que o claro não usa hachura (ainda)
 
@@ -329,6 +332,53 @@ deliberado, e **não** equivale a deixar o token indefinido. Um `var()` sem
 fallback que não resolve invalida a propriedade inteira no cálculo do valor
 computado, o que zeraria também qualquer `background-image` que o consumidor
 tenha posto no controle.
+
+### 8.6 "Aguardando" não é "desabilitado"
+
+Decisão registrada em [ADR 0003](../../adr/0003-espera-transitoria-nao-usa-sinal-de-desabilitado.md).
+
+Muitas telas desabilitam controles só **enquanto esperam algo**: uma requisição
+em curso (login trava CPF, senha e botão enquanto verifica as credenciais; um
+formulário trava os campos enquanto salva) ou um intervalo fixo (diálogo de
+confirmação que só libera o "Sim" depois de alguns segundos, contra clique por
+reflexo). Para o CSS isso é o mesmo `:disabled` de um bloqueio por regra de
+negócio — e caía na hachura. Errado nos dois sentidos: a hachura diz "você não
+pode mexer aqui" quando a mensagem é "espere, já volta", e sendo estática não dá
+nenhum sinal de progresso. Um formulário inteiro sob hachura durante o login
+parece quebrado, não ocupado.
+
+O canal da espera é **movimento**, que nenhum estado estático do tema usa:
+
+| Espera | Marcação | Sinal |
+|---|---|---|
+| Duração desconhecida (requisição) | `aria-busy="true"` no controle ou num container ancestral. `Button` faz isso sozinho com a prop `loading` | Brilho translúcido que varre o controle em loop (1,4 s): `--aguardando-brilho` (12%) no botão, `--aguardando-brilho-leve` (7%) no campo |
+| Duração conhecida (intervalo fixo) | Classe `pds-button--aguardando` + `--aguardando-duracao` (ex.: `3500ms`) no `style` do botão | Preenchimento (`--aguardando-progresso`, 12%) que avança da esquerda e completa exatamente quando o botão libera — o usuário vê quanto falta |
+
+Nos dois casos: **sem hachura e sem tracejado**, borda sólida em
+`--color-border`, texto em `--color-text-muted` (no campo é o valor que o
+usuário acabou de digitar e precisa continuar legível) e `cursor: progress`.
+O campo volta à superfície do **ativo** (nada está bloqueado); o botão mantém o
+fundo neutro do desabilitado, porque a cor da variante de volta o faria parecer
+clicável.
+
+- **`aria-busy` é a marcação, não uma classe inventada**: é o atributo de
+  acessibilidade para "conteúdo em atualização" — serve ao leitor de tela e ao
+  tema ao mesmo tempo. O consumidor põe e tira junto com o `disabled`.
+- **Opt-in.** Controle desabilitado fora de `[aria-busy="true"]` continua com a
+  hachura — a tela é quem declara que o bloqueio é transitório.
+- **`prefers-reduced-motion: reduce`**: as imagens voltam a `none` e a animação
+  pausa (`--aguardando-animacao: paused`); ficam o texto secundário e o cursor.
+- **No claro** as imagens valem `none`, como a hachura (§8.5): o controle
+  aguardando perde o tracejado de desabilitado e fica com borda sólida e texto
+  secundário, sem textura. Levar o movimento ao claro é a mesma decisão em
+  aberto da §8.5.
+- **Keyframes** (`pds-aguardando-brilho`, `pds-aguardando-progresso`) moram em
+  `tokens.css`, não no CSS de cada componente: são compartilhados, e
+  `tokens.css` é o único arquivo que todo consumidor carrega.
+- Duas armadilhas de implementação já pagas no SIPLAN-v2: `animation-play-state`
+  precisa vir **depois** do shorthand `animation` (que o reseta); e uma variável
+  cujo valor contém `var(--aguardando-duracao)` declarada na raiz resolve **na
+  raiz**, não no botão — por isso a duração é lida direto na regra do botão.
 
 ## 9. Diretrizes gerais de uso
 
